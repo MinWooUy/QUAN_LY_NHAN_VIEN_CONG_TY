@@ -63,7 +63,9 @@ void menu(HeThongQuanLy heThong)
 int main() {
     HeThongQuanLy heThong;
 
-    heThong.loadNhanVienTuFile("nhan_vien_test.txt");
+    string file_path = "../data/nhan_vien_test.txt";
+
+    heThong.loadNhanVienTuFile(file_path);
 
     cout << "\nThong tin tong quan he thong:\n";
     heThong.hienThiThongTinTongQuan();
