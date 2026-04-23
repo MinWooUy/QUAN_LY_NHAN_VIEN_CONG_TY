@@ -7,13 +7,9 @@ using namespace std;
 HeThongQuanLy::HeThongQuanLy() {
 }
 
-void HeThongQuanLy::themNhanVien(const NhanVien& nv) {
-    dsNhanVien.push_back(nv);
-}
-
-void HeThongQuanLy::themPhongBan(const PhongBan& pb) {
-    dsPhongBan.push_back(pb);
-}
+//------------------------------------------------------------//
+//                        THONG TIN TONG QUAN                 //
+//------------------------------------------------------------//
 
 void HeThongQuanLy::hienThiThongTinTongQuan() {
     cout << "He thong da khoi tao thanh cong." << endl;
@@ -26,30 +22,30 @@ void HeThongQuanLy::hienThiThongTinTongQuan() {
     cout << "So luong bao cao cong: " << dsBaoCaoCong.size() << endl;
 }
 
-void HeThongQuanLy::hienThiDanhSachNhanVien() {
-    if (dsNhanVien.empty()) {
-        cout << "Danh sach nhan vien dang rong." << endl;
-        return;
-    }
+//------------------------------------------------------------//
+//                         OBJECT NHANVIEN                    //
+//------------------------------------------------------------//
 
-    cout << "\n===== DANH SACH NHAN VIEN =====" << endl;
+int HeThongQuanLy::timViTriNhanVienTheoMa(const string& maNhanVien) {
     for (int i = 0; i < dsNhanVien.size(); i++) {
-        cout << "\nNhan vien thu " << i + 1 << ":" << endl;
-        dsNhanVien[i].hienThiThongTin();
+        if (dsNhanVien[i].getMaNhanVien() == maNhanVien) {
+            return i;
+        }
     }
+    return -1;
 }
 
-void HeThongQuanLy::hienThiDanhSachPhongBan() {
-    if (dsPhongBan.empty()) {
-        cout << "Danh sach phong ban dang rong." << endl;
+bool HeThongQuanLy::tonTaiMaNhanVien(const string& maNhanVien) {
+    return timViTriNhanVienTheoMa(maNhanVien) != -1;
+}
+
+void HeThongQuanLy::themNhanVien(const NhanVien& nv) {
+    if (tonTaiMaNhanVien(nv.getMaNhanVien())) {
+        cout << "Ma nhan vien da ton tai. Khong the them.\n";
         return;
     }
 
-    cout << "\n===== DANH SACH PHONG BAN =====" << endl;
-    for (int i = 0; i < dsPhongBan.size(); i++) {
-        cout << "\nPhong ban thu " << i + 1 << ":" << endl;
-        dsPhongBan[i].hienThiThongTin();
-    }    
+    dsNhanVien.push_back(nv);
 }
 
 void HeThongQuanLy::loadNhanVienTuFile(const string& tenFile) {
@@ -97,10 +93,132 @@ void HeThongQuanLy::loadNhanVienTuFile(const string& tenFile) {
             parts[9]
         );
 
-        dsNhanVien.push_back(nv);
-        soLuongDaLoad++;
+        if (!tonTaiMaNhanVien(nv.getMaNhanVien())) {
+            dsNhanVien.push_back(nv);
+            soLuongDaLoad++;
+        }
     }
 
     file.close();
     cout << "Da load " << soLuongDaLoad << " nhan vien tu file." << endl;
+}
+
+void HeThongQuanLy::hienThiDanhSachNhanVien() {
+    if (dsNhanVien.empty()) {
+        cout << "Danh sach nhan vien dang rong." << endl;
+        return;
+    }
+
+    cout << "\n===== DANH SACH NHAN VIEN =====" << endl;
+    for (int i = 0; i < dsNhanVien.size(); i++) {
+        cout << "\nNhan vien thu " << i + 1 << ":" << endl;
+        dsNhanVien[i].hienThiThongTin();
+    }
+}
+
+void HeThongQuanLy::hienThiNhanVienTheoMa(const string& maNhanVien) {
+    int viTri = timViTriNhanVienTheoMa(maNhanVien);
+
+    if (viTri == -1) {
+        cout << "Khong tim thay nhan vien co ma: " << maNhanVien << endl;
+        return;
+    }
+
+    cout << "\nThong tin nhan vien tim duoc:\n";
+    dsNhanVien[viTri].hienThiThongTin();
+}
+
+bool HeThongQuanLy::xoaNhanVienTheoMa(const string& maNhanVien) {
+    int viTri = timViTriNhanVienTheoMa(maNhanVien);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsNhanVien.erase(dsNhanVien.begin() + viTri);
+    return true;
+}
+
+bool HeThongQuanLy::suaNhanVienTheoMa(const string& maNhanVien) {
+    int viTri = timViTriNhanVienTheoMa(maNhanVien);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsNhanVien[viTri].capNhatThongTin();
+    return true;
+}
+
+NhanVien* HeThongQuanLy::layNhanVienTheoMa(const string& maNhanVien) {
+    int viTri = timViTriNhanVienTheoMa(maNhanVien);
+
+    if (viTri == -1) {
+        return nullptr;
+    }
+
+    return &dsNhanVien[viTri];
+}
+
+//------------------------------------------------------------//
+//                         OBJECT PHONGBAN                    //
+//------------------------------------------------------------//
+
+void HeThongQuanLy::themPhongBan(const PhongBan& pb) {
+    dsPhongBan.push_back(pb);
+}
+
+void HeThongQuanLy::hienThiDanhSachPhongBan() {
+    if (dsPhongBan.empty()) {
+        cout << "Danh sach phong ban dang rong." << endl;
+        return;
+    }
+
+    cout << "\n===== DANH SACH PHONG BAN =====" << endl;
+    for (int i = 0; i < dsPhongBan.size(); i++) {
+        cout << "\nPhong ban thu " << i + 1 << ":" << endl;
+        dsPhongBan[i].hienThiThongTin();
+    }
+}
+
+//------------------------------------------------------------//
+//                         OBJECT CHAMCONG                    //
+//------------------------------------------------------------//
+
+void HeThongQuanLy::themChamCong(const ChamCong& cc) {
+    dsChamCong.push_back(cc);
+}
+
+void HeThongQuanLy::hienThiDanhSachChamCong() {
+    if (dsChamCong.empty()) {
+        cout << "Danh sach cham cong dang rong." << endl;
+        return;
+    }
+
+    cout << "\n===== DANH SACH CHAM CONG =====" << endl;
+    for (int i = 0; i < dsChamCong.size(); i++) {
+        cout << "\nBan ghi cham cong thu " << i + 1 << ":" << endl;
+        dsChamCong[i].hienThiThongTin();
+    }
+}
+
+//------------------------------------------------------------//
+//                       OBJECT LICHLAMVIEC                   //
+//------------------------------------------------------------//
+
+void HeThongQuanLy::themLichLamViec(const LichLamViec& llv) {
+    dsLichLamViec.push_back(llv);
+}
+
+void HeThongQuanLy::hienThiDanhSachLichLamViec() {
+    if (dsLichLamViec.empty()) {
+        cout << "Danh sach lich lam viec dang rong." << endl;
+        return;
+    }
+
+    cout << "\n===== DANH SACH LICH LAM VIEC =====" << endl;
+    for (int i = 0; i < dsLichLamViec.size(); i++) {
+        cout << "\nLich lam viec thu " << i + 1 << ":" << endl;
+        dsLichLamViec[i].hienThiThongTin();
+    }
 }

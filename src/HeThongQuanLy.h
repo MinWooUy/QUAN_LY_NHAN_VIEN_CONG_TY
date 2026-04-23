@@ -23,15 +23,38 @@ private:
 
 public:
     HeThongQuanLy();
-
-    void themNhanVien(const NhanVien& nv);
-    void themPhongBan(const PhongBan& pb);
-
-    void loadNhanVienTuFile(const string& tenFile);
-
     void hienThiThongTinTongQuan();
+
+    //-------------------------------------------------------------------//
+    //                          OBJECT NHANVIEN
+    //-------------------------------------------------------------------//
+    int timViTriNhanVienTheoMa(const string& maNhanVien);
+    bool tonTaiMaNhanVien(const string& maNhanVien);
+    NhanVien* layNhanVienTheoMa(const string& maNhanVien);
+    void themNhanVien(const NhanVien& nv);
+    void loadNhanVienTuFile(const string& tenFile);
     void hienThiDanhSachNhanVien();
+    void hienThiNhanVienTheoMa(const string& maNhanVien);
+    bool xoaNhanVienTheoMa(const string& maNhanVien);
+    bool suaNhanVienTheoMa(const string& maNhanVien);
+
+    //-------------------------------------------------------------------//
+    //                          OBJECT PHONGBAN
+    //-------------------------------------------------------------------//
+    void themPhongBan(const PhongBan& pb);
     void hienThiDanhSachPhongBan();
+
+    //-------------------------------------------------------------------//
+    //                          OBJECT CHAMCONG
+    //-------------------------------------------------------------------//
+    void themChamCong(const ChamCong& cc);
+    void hienThiDanhSachChamCong();
+
+    //-------------------------------------------------------------------//
+    //                          OBJECT LICHLAMVIEC
+    //-------------------------------------------------------------------//
+    void themLichLamViec(const LichLamViec& llv);
+    void hienThiDanhSachLichLamViec();
 };
 
 #endif

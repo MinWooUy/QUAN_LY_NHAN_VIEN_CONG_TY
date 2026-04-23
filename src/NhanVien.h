@@ -35,8 +35,27 @@ public:
 
     void nhapThongTin();
     void hienThiThongTin();
+    void capNhatThongTin();
 
-    string getMaPhongBan();
+    string getMaNhanVien() const;
+    string getHoTen() const;
+    string getNgaySinh() const;
+    string getGioiTinh() const;
+    string getSoDienThoai() const;
+    string getEmail() const;
+    string getDiaChi() const;
+    string getChucVu() const;
+    string getNgayVaoLam() const;
+    string getMaPhongBan() const;
+
+    void setHoTen(const string& hoTen);
+    void setNgaySinh(const string& ngaySinh);
+    void setGioiTinh(const string& gioiTinh);
+    void setSoDienThoai(const string& soDienThoai);
+    void setEmail(const string& email);
+    void setDiaChi(const string& diaChi);
+    void setChucVu(const string& chucVu);
+    void setNgayVaoLam(const string& ngayVaoLam);
     void setMaPhongBan(string ma);
 };
 

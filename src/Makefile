@@ -1,12 +1,14 @@
 CXX = g++
-TARGET = main
-SRC = *.cpp
+TARGET = main.exe
+SRC = $(wildcard *.cpp)
+
+CXXFLAGS = -std=c++11
 
 all:
-	$(CXX) $(SRC) -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
 
 run: all
-	.\$(TARGET).exe
+	.\$(TARGET)
 
 clean:
-	cmd /c if exist $(TARGET).exe del /Q $(TARGET).exe
+	cmd /c if exist $(TARGET) del /Q $(TARGET)
