@@ -1,5 +1,6 @@
 #include "LichLamViec.h"
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 LichLamViec::LichLamViec() {
@@ -30,37 +31,63 @@ LichLamViec::LichLamViec(
     this->viTriLamViec = viTriLamViec;
 }
 
-void LichLamViec::nhapThongTin() {
-    cout << "Nhap ma lich lam: ";
-    getline(cin, maLichLam);
+#include <fstream>
+#include <sstream>
+#include <vector>
 
-    cout << "Nhap ma nhan vien: ";
-    getline(cin, maNhanVien);
+void LichLamViec::loadLichLamViecTuFile(const string& taolich, vector<LichLamViec>& dsLich) {
+    ifstream file(taolich);
 
-    cout << "Nhap ngay lam viec: ";
-    getline(cin, ngayLamViec);
+    if (!file.is_open()) {
+        cout << "Khong mo duoc file: " << taolich << endl;
+        return;
+    }
 
-    cout << "Nhap ca lam: ";
-    getline(cin, caLam);
+    string line;
+    int soLuongDaLoad = 0;
 
-    cout << "Nhap gio bat dau: ";
-    getline(cin, gioBatDau);
+    while (getline(file, line)) {
+        if (line.empty() || line[0] == '#') continue;
 
-    cout << "Nhap gio ket thuc: ";
-    getline(cin, gioKetThuc);
+        stringstream ss(line);
+        vector<string> parts;
+        string part;
 
-    cout << "Nhap vi tri lam viec: ";
-    getline(cin, viTriLamViec);
+        while (getline(ss, part, '|')) {
+            parts.push_back(part);
+        }
+
+        if (parts.size() != 7) continue;
+
+        LichLamViec lich;
+
+        lich.setMaLichLam(parts[0]);      // nếu có mã lịch
+        lich.setMaNhanVien(parts[1]);
+        lich.setNgayLamViec(parts[2]);
+        lich.setCaLam(parts[3]);
+        lich.setGioBatDau(parts[4]);
+        lich.setGioKetThuc(parts[5]);
+        lich.setViTriLamViec(parts[6]);
+
+        // nếu bạn có setMaLich thì thêm
+        // lich.setMaLich(parts[0]);
+
+        dsLich.push_back(lich);
+        soLuongDaLoad++;
+    }
+
+    file.close();
+    cout << "Da load " << soLuongDaLoad << " lich lam viec tu file." << endl;
 }
 
-void LichLamViec::hienThiThongTin() const {
-    cout << "Ma lich lam: " << maLichLam << endl;
-    cout << "Ma nhan vien: " << maNhanVien << endl;
-    cout << "Ngay lam viec: " << ngayLamViec << endl;
-    cout << "Ca lam: " << caLam << endl;
-    cout << "Gio bat dau: " << gioBatDau << endl;
-    cout << "Gio ket thuc: " << gioKetThuc << endl;
-    cout << "Vi tri lam viec: " << viTriLamViec << endl;
+void LichLamViec::hienThiThongTinLich() const {
+    cout << maLichLam << " | "
+         << maNhanVien << " | "
+         << ngayLamViec << " | "
+         << caLam << " | "
+         << gioBatDau << " | "
+         << gioKetThuc << " | "
+         << viTriLamViec << endl;
 }
 
 void LichLamViec::capNhatThongTin() {
@@ -109,6 +136,10 @@ string LichLamViec::getGioKetThuc() const {
 
 string LichLamViec::getViTriLamViec() const {
     return viTriLamViec;
+}
+
+void LichLamViec::setMaLichLam(const string& maLichLam) {
+    this->maLichLam = maLichLam;
 }
 
 void LichLamViec::setMaNhanVien(const string& maNhanVien) {
