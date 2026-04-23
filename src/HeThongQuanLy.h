@@ -96,12 +96,42 @@ public:
         double soGioLam,
         const string& ghiChu
     );
-    
+
     //-------------------------------------------------------------------//
     //                          OBJECT LICHLAMVIEC
     //-------------------------------------------------------------------//
     void themLichLamViec(const LichLamViec& llv);
     void hienThiDanhSachLichLamViec();
+
+    //-------------------------------------------------------------------//
+    //                         OBJECT DONXINNGHI
+    //-------------------------------------------------------------------//
+    int timViTriDonXinNghiTheoMa(const string& maDonNghi);
+    bool tonTaiMaDonXinNghi(const string& maDonNghi);
+    DonXinNghi* layDonXinNghiTheoMa(const string& maDonNghi);
+    const vector<DonXinNghi>& layDanhSachDonXinNghi() const;
+
+    void themDonXinNghi(const DonXinNghi& dxn);
+    void hienThiDanhSachDonXinNghi();
+    void hienThiDonXinNghiTheoMa(const string& maDonNghi);
+
+    bool xoaDonXinNghiTheoMa(const string& maDonNghi);
+    bool suaDonXinNghiTheoMa(const string& maDonNghi);
+
+    bool capNhatDonXinNghiTheoMa(
+        const string& maDonNghi,
+        const string& maNhanVien,
+        const string& loaiNghi,
+        const string& ngayBatDau,
+        const string& ngayKetThuc,
+        const string& lyDo,
+        const string& trangThaiDuyet,
+        const string& nguoiDuyet
+    );
+
+
+
+
 };
 
 #endif
