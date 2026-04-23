@@ -197,7 +197,6 @@ public:
         double soGioTangCa
     );
 
-    void ghiCSVTuTXT(const string& fileTxt, const string& fileCSV);
 
 
 };
