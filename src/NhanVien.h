@@ -2,9 +2,10 @@
 #define NHANVIEN_H
 
 #include <string>
+#include "LichLamViec.h"
 using namespace std;
 
-class NhanVien {
+class NhanVien: public LichLamViec {
 private:
     string maNhanVien;
     string hoTen;
