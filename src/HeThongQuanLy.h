@@ -54,15 +54,49 @@ public:
     //-------------------------------------------------------------------//
     //                          OBJECT PHONGBAN
     //-------------------------------------------------------------------//
+    int timViTriPhongBanTheoMa(const string& maPhongBan);
+    bool tonTaiMaPhongBan(const string& maPhongBan);
     void themPhongBan(const PhongBan& pb);
     void hienThiDanhSachPhongBan();
+    void hienThiPhongBanTheoMa(const string& maPhongBan);
+    bool xoaPhongBanTheoMa(const string& maPhongBan);
+    bool suaPhongBanTheoMa(const string& maPhongBan);
+    PhongBan* layPhongBanTheoMa(const string& maPhongBan);
+    const vector<PhongBan>& layDanhSachPhongBan() const;
+
+    bool capNhatPhongBanTheoMa(
+        const string& maPhongBan,
+        const string& tenPhongBan,
+        const string& truongPhong,
+        int soLuongNhanVien
+    );
 
     //-------------------------------------------------------------------//
     //                          OBJECT CHAMCONG
     //-------------------------------------------------------------------//
+    int timViTriChamCongTheoMa(const string& maChamCong);
+    bool tonTaiMaChamCong(const string& maChamCong);
+    ChamCong* layChamCongTheoMa(const string& maChamCong);
+    const vector<ChamCong>& layDanhSachChamCong() const;
+
     void themChamCong(const ChamCong& cc);
     void hienThiDanhSachChamCong();
+    void hienThiChamCongTheoMa(const string& maChamCong);
 
+    bool xoaChamCongTheoMa(const string& maChamCong);
+    bool suaChamCongTheoMa(const string& maChamCong);
+
+    bool capNhatChamCongTheoMa(
+        const string& maChamCong,
+        const string& maNhanVien,
+        const string& ngayLamViec,
+        const string& gioVao,
+        const string& gioRa,
+        const string& trangThaiChamCong,
+        double soGioLam,
+        const string& ghiChu
+    );
+    
     //-------------------------------------------------------------------//
     //                          OBJECT LICHLAMVIEC
     //-------------------------------------------------------------------//

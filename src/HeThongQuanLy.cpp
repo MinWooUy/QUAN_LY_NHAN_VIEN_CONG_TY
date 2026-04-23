@@ -200,6 +200,11 @@ bool HeThongQuanLy::capNhatNhanVienTheoMa(
 //------------------------------------------------------------//
 
 void HeThongQuanLy::themPhongBan(const PhongBan& pb) {
+    if (tonTaiMaPhongBan(pb.getMaPhongBan())) {
+        cout << "Ma phong ban da ton tai. Khong the them.\n";
+        return;
+    }
+
     dsPhongBan.push_back(pb);
 }
 
@@ -216,11 +221,123 @@ void HeThongQuanLy::hienThiDanhSachPhongBan() {
     }
 }
 
+bool HeThongQuanLy::tonTaiMaPhongBan(const string& maPhongBan) {
+    return timViTriPhongBanTheoMa(maPhongBan) != -1;
+}
+
+int HeThongQuanLy::timViTriPhongBanTheoMa(const string& maPhongBan) {
+    for (int i = 0; i < dsPhongBan.size(); i++) {
+        if (dsPhongBan[i].getMaPhongBan() == maPhongBan) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void HeThongQuanLy::hienThiPhongBanTheoMa(const string& maPhongBan) {
+    int viTri = timViTriPhongBanTheoMa(maPhongBan);
+
+    if (viTri == -1) {
+        cout << "Khong tim thay phong ban co ma: " << maPhongBan << endl;
+        return;
+    }
+
+    cout << "\nThong tin phong ban tim duoc:\n";
+    dsPhongBan[viTri].hienThiThongTin();
+}
+
+bool HeThongQuanLy::xoaPhongBanTheoMa(const string& maPhongBan) {
+    int viTri = timViTriPhongBanTheoMa(maPhongBan);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsPhongBan.erase(dsPhongBan.begin() + viTri);
+    return true;
+}
+
+bool HeThongQuanLy::suaPhongBanTheoMa(const string& maPhongBan) {
+    int viTri = timViTriPhongBanTheoMa(maPhongBan);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsPhongBan[viTri].capNhatThongTin();
+    return true;
+}
+
+PhongBan* HeThongQuanLy::layPhongBanTheoMa(const string& maPhongBan) {
+    int viTri = timViTriPhongBanTheoMa(maPhongBan);
+
+    if (viTri == -1) {
+        return nullptr;
+    }
+
+    return &dsPhongBan[viTri];
+}
+
+const vector<PhongBan>& HeThongQuanLy::layDanhSachPhongBan() const {
+    return dsPhongBan;
+}
+
+bool HeThongQuanLy::capNhatPhongBanTheoMa(
+    const string& maPhongBan,
+    const string& tenPhongBan,
+    const string& truongPhong,
+    int soLuongNhanVien
+) {
+    PhongBan* pb = layPhongBanTheoMa(maPhongBan);
+
+    if (pb == nullptr) {
+        return false;
+    }
+
+    pb->setTenPhongBan(tenPhongBan);
+    pb->setTruongPhong(truongPhong);
+    pb->setSoLuongNhanVien(soLuongNhanVien);
+
+    return true;
+}
+
 //------------------------------------------------------------//
 //                         OBJECT CHAMCONG                    //
 //------------------------------------------------------------//
 
+int HeThongQuanLy::timViTriChamCongTheoMa(const string& maChamCong) {
+    for (int i = 0; i < dsChamCong.size(); i++) {
+        if (dsChamCong[i].getMaChamCong() == maChamCong) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool HeThongQuanLy::tonTaiMaChamCong(const string& maChamCong) {
+    return timViTriChamCongTheoMa(maChamCong) != -1;
+}
+
+ChamCong* HeThongQuanLy::layChamCongTheoMa(const string& maChamCong) {
+    int viTri = timViTriChamCongTheoMa(maChamCong);
+
+    if (viTri == -1) {
+        return nullptr;
+    }
+
+    return &dsChamCong[viTri];
+}
+
+const vector<ChamCong>& HeThongQuanLy::layDanhSachChamCong() const {
+    return dsChamCong;
+}
+
 void HeThongQuanLy::themChamCong(const ChamCong& cc) {
+    if (tonTaiMaChamCong(cc.getMaChamCong())) {
+        cout << "Ma cham cong da ton tai. Khong the them.\n";
+        return;
+    }
+
     dsChamCong.push_back(cc);
 }
 
@@ -235,6 +352,67 @@ void HeThongQuanLy::hienThiDanhSachChamCong() {
         cout << "\nBan ghi cham cong thu " << i + 1 << ":" << endl;
         dsChamCong[i].hienThiThongTin();
     }
+}
+
+void HeThongQuanLy::hienThiChamCongTheoMa(const string& maChamCong) {
+    int viTri = timViTriChamCongTheoMa(maChamCong);
+
+    if (viTri == -1) {
+        cout << "Khong tim thay cham cong co ma: " << maChamCong << endl;
+        return;
+    }
+
+    cout << "\nThong tin cham cong tim duoc:\n";
+    dsChamCong[viTri].hienThiThongTin();
+}
+
+bool HeThongQuanLy::xoaChamCongTheoMa(const string& maChamCong) {
+    int viTri = timViTriChamCongTheoMa(maChamCong);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsChamCong.erase(dsChamCong.begin() + viTri);
+    return true;
+}
+
+bool HeThongQuanLy::suaChamCongTheoMa(const string& maChamCong) {
+    int viTri = timViTriChamCongTheoMa(maChamCong);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsChamCong[viTri].capNhatThongTin();
+    return true;
+}
+
+bool HeThongQuanLy::capNhatChamCongTheoMa(
+    const string& maChamCong,
+    const string& maNhanVien,
+    const string& ngayLamViec,
+    const string& gioVao,
+    const string& gioRa,
+    const string& trangThaiChamCong,
+    double soGioLam,
+    const string& ghiChu
+) {
+    ChamCong* cc = layChamCongTheoMa(maChamCong);
+
+    if (cc == nullptr) {
+        return false;
+    }
+
+    cc->setMaNhanVien(maNhanVien);
+    cc->setNgayLamViec(ngayLamViec);
+    cc->setGioVao(gioVao);
+    cc->setGioRa(gioRa);
+    cc->setTrangThaiChamCong(trangThaiChamCong);
+    cc->setSoGioLam(soGioLam);
+    cc->setGhiChu(ghiChu);
+
+    return true;
 }
 
 //------------------------------------------------------------//
