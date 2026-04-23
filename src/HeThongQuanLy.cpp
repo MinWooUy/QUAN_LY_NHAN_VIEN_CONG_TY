@@ -160,6 +160,41 @@ NhanVien* HeThongQuanLy::layNhanVienTheoMa(const string& maNhanVien) {
     return &dsNhanVien[viTri];
 }
 
+const vector<NhanVien>& HeThongQuanLy::layDanhSachNhanVien() const {
+    return dsNhanVien;
+}
+
+bool HeThongQuanLy::capNhatNhanVienTheoMa(
+    const string& maNhanVien,
+    const string& hoTen,
+    const string& ngaySinh,
+    const string& gioiTinh,
+    const string& soDienThoai,
+    const string& email,
+    const string& diaChi,
+    const string& chucVu,
+    const string& ngayVaoLam,
+    const string& maPhongBan
+) {
+    NhanVien* nv = layNhanVienTheoMa(maNhanVien);
+
+    if (nv == nullptr) {
+        return false;
+    }
+
+    nv->setHoTen(hoTen);
+    nv->setNgaySinh(ngaySinh);
+    nv->setGioiTinh(gioiTinh);
+    nv->setSoDienThoai(soDienThoai);
+    nv->setEmail(email);
+    nv->setDiaChi(diaChi);
+    nv->setChucVu(chucVu);
+    nv->setNgayVaoLam(ngayVaoLam);
+    nv->setMaPhongBan(maPhongBan);
+
+    return true;
+}
+
 //------------------------------------------------------------//
 //                         OBJECT PHONGBAN                    //
 //------------------------------------------------------------//

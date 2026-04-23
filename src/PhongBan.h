@@ -13,13 +13,20 @@ private:
 
 public:
     PhongBan();
-    PhongBan(string ma, string ten, string truong, int soLuong);
+    PhongBan(const string& ma, const string& ten, const string& truong, int soLuong);
 
     void nhapThongTin();
-    void hienThiThongTin();
+    void hienThiThongTin() const;
+    void capNhatThongTin();
 
-    string getMaPhongBan();
-    string getTenPhongBan();
+    string getMaPhongBan() const;
+    string getTenPhongBan() const;
+    string getTruongPhong() const;
+    int getSoLuongNhanVien() const;
+
+    void setTenPhongBan(const string& tenPhongBan);
+    void setTruongPhong(const string& truongPhong);
+    void setSoLuongNhanVien(int soLuongNhanVien);
 };
 
 #endif

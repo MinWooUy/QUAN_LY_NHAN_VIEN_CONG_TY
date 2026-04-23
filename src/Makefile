@@ -1,7 +1,6 @@
 CXX = g++
 TARGET = main.exe
 SRC = $(wildcard *.cpp)
-
 CXXFLAGS = -std=c++11
 
 all:

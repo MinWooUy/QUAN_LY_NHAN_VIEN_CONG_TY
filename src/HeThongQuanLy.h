@@ -31,6 +31,7 @@ public:
     int timViTriNhanVienTheoMa(const string& maNhanVien);
     bool tonTaiMaNhanVien(const string& maNhanVien);
     NhanVien* layNhanVienTheoMa(const string& maNhanVien);
+    const vector<NhanVien>& layDanhSachNhanVien() const;
     void themNhanVien(const NhanVien& nv);
     void loadNhanVienTuFile(const string& tenFile);
     void hienThiDanhSachNhanVien();
@@ -38,6 +39,18 @@ public:
     bool xoaNhanVienTheoMa(const string& maNhanVien);
     bool suaNhanVienTheoMa(const string& maNhanVien);
 
+    bool capNhatNhanVienTheoMa(
+        const string& maNhanVien,
+        const string& hoTen,
+        const string& ngaySinh,
+        const string& gioiTinh,
+        const string& soDienThoai,
+        const string& email,
+        const string& diaChi,
+        const string& chucVu,
+        const string& ngayVaoLam,
+        const string& maPhongBan
+    );
     //-------------------------------------------------------------------//
     //                          OBJECT PHONGBAN
     //-------------------------------------------------------------------//

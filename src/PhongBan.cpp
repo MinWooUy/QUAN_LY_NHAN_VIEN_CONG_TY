@@ -9,7 +9,7 @@ PhongBan::PhongBan() {
     soLuongNhanVien = 0;
 }
 
-PhongBan::PhongBan(string ma, string ten, string truong, int soLuong) {
+PhongBan::PhongBan(const string& ma, const string& ten, const string& truong, int soLuong) {
     maPhongBan = ma;
     tenPhongBan = ten;
     truongPhong = truong;
@@ -31,17 +31,49 @@ void PhongBan::nhapThongTin() {
     cin.ignore();
 }
 
-void PhongBan::hienThiThongTin() {
+void PhongBan::hienThiThongTin() const {
     cout << "Ma phong ban: " << maPhongBan << endl;
     cout << "Ten phong ban: " << tenPhongBan << endl;
     cout << "Truong phong: " << truongPhong << endl;
     cout << "So luong nhan vien: " << soLuongNhanVien << endl;
 }
 
-string PhongBan::getMaPhongBan() {
+void PhongBan::capNhatThongTin() {
+    cout << "Cap nhat ten phong ban: ";
+    getline(cin, tenPhongBan);
+
+    cout << "Cap nhat truong phong: ";
+    getline(cin, truongPhong);
+
+    cout << "Cap nhat so luong nhan vien: ";
+    cin >> soLuongNhanVien;
+    cin.ignore();
+}
+
+string PhongBan::getMaPhongBan() const {
     return maPhongBan;
 }
 
-string PhongBan::getTenPhongBan() {
+string PhongBan::getTenPhongBan() const {
     return tenPhongBan;
+}
+
+string PhongBan::getTruongPhong() const {
+    return truongPhong;
+}
+
+int PhongBan::getSoLuongNhanVien() const {
+    return soLuongNhanVien;
+}
+
+void PhongBan::setTenPhongBan(const string& tenPhongBan) {
+    this->tenPhongBan = tenPhongBan;
+}
+
+void PhongBan::setTruongPhong(const string& truongPhong) {
+    this->truongPhong = truongPhong;
+}
+
+void PhongBan::setSoLuongNhanVien(int soLuongNhanVien) {
+    this->soLuongNhanVien = soLuongNhanVien;
 }
