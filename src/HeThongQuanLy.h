@@ -98,10 +98,29 @@ public:
     );
 
     //-------------------------------------------------------------------//
-    //                          OBJECT LICHLAMVIEC
+    //                       OBJECT LICHLAMVIEC
     //-------------------------------------------------------------------//
+    int timViTriLichLamViecTheoMa(const string& maLichLam);
+    bool tonTaiMaLichLamViec(const string& maLichLam);
+    LichLamViec* layLichLamViecTheoMa(const string& maLichLam);
+    const vector<LichLamViec>& layDanhSachLichLamViec() const;
+
     void themLichLamViec(const LichLamViec& llv);
     void hienThiDanhSachLichLamViec();
+    void hienThiLichLamViecTheoMa(const string& maLichLam);
+
+    bool xoaLichLamViecTheoMa(const string& maLichLam);
+    bool suaLichLamViecTheoMa(const string& maLichLam);
+
+    bool capNhatLichLamViecTheoMa(
+        const string& maLichLam,
+        const string& maNhanVien,
+        const string& ngayLamViec,
+        const string& caLam,
+        const string& gioBatDau,
+        const string& gioKetThuc,
+        const string& viTriLamViec
+    );
 
     //-------------------------------------------------------------------//
     //                         OBJECT DONXINNGHI
@@ -129,6 +148,54 @@ public:
         const string& nguoiDuyet
     );
 
+    //-------------------------------------------------------------------//
+    //                           OBJECT QUANLY
+    //-------------------------------------------------------------------//
+    int timViTriQuanLyTheoMa(const string& maQuanLy);
+    bool tonTaiMaQuanLy(const string& maQuanLy);
+    QuanLy* layQuanLyTheoMa(const string& maQuanLy);
+    const vector<QuanLy>& layDanhSachQuanLy() const;
+
+    void themQuanLy(const QuanLy& ql);
+    void hienThiDanhSachQuanLy();
+    void hienThiQuanLyTheoMa(const string& maQuanLy);
+
+    bool xoaQuanLyTheoMa(const string& maQuanLy);
+    bool suaQuanLyTheoMa(const string& maQuanLy);
+
+    bool capNhatQuanLyTheoMa(
+        const string& maQuanLy,
+        const string& hoTen,
+        const string& taiKhoan,
+        const string& matKhau,
+        const string& quyenHan
+    );  
+
+    //-------------------------------------------------------------------//
+    //                         OBJECT BAOCAOCONG
+    //-------------------------------------------------------------------//
+    int timViTriBaoCaoCongTheoMa(const string& maBaoCao);
+    bool tonTaiMaBaoCaoCong(const string& maBaoCao);
+    BaoCaoCong* layBaoCaoCongTheoMa(const string& maBaoCao);
+    const vector<BaoCaoCong>& layDanhSachBaoCaoCong() const;
+
+    void themBaoCaoCong(const BaoCaoCong& bcc);
+    void hienThiDanhSachBaoCaoCong();
+    void hienThiBaoCaoCongTheoMa(const string& maBaoCao);
+
+    bool xoaBaoCaoCongTheoMa(const string& maBaoCao);
+    bool suaBaoCaoCongTheoMa(const string& maBaoCao);
+
+    bool capNhatBaoCaoCongTheoMa(
+        const string& maBaoCao,
+        int thang,
+        int nam,
+        const string& maNhanVien,
+        int tongSoNgayLam,
+        int soNgayNghi,
+        int soLanDiTre,
+        double soGioTangCa
+    );
 
 
 
