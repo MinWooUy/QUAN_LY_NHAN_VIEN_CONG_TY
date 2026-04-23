@@ -1,0 +1,14 @@
+# FILE TEST NHAN VIEN
+# Dinh dang moi dong:
+# maNhanVien|hoTen|ngaySinh|gioiTinh|soDienThoai|email|diaChi|chucVu|ngayVaoLam|maPhongBan
+
+NV001|Nguyen Van An|12/03/2000|Nam|0901234561|an.nguyen@company.com|12 Le Loi, Q1, TP.HCM|Nhan vien HCNS|01/06/2023|PB001
+NV002|Tran Thi Bich|25/07/1999|Nu|0901234562|bich.tran@company.com|45 Nguyen Trai, Q5, TP.HCM|Ke toan vien|15/08/2022|PB002
+NV003|Le Hoang Minh|08/11/2001|Nam|0901234563|minh.le@company.com|78 Cach Mang Thang 8, Q10, TP.HCM|Nhan vien kinh doanh|10/01/2024|PB003
+NV004|Pham Thu Ha|19/01/2000|Nu|0901234564|ha.pham@company.com|22 Dien Bien Phu, Binh Thanh, TP.HCM|Lap trinh vien|20/09/2023|PB004
+NV005|Vo Quoc Dat|30/05/1998|Nam|0901234565|dat.vo@company.com|90 Phan Xich Long, Phu Nhuan, TP.HCM|Ky thuat vien|03/04/2021|PB004
+NV006|Dang Ngoc Yen|14/09/2002|Nu|0901234566|yen.dang@company.com|11 Vo Van Tan, Q3, TP.HCM|Nhan vien van hanh|12/02/2024|PB005
+NV007|Bui Gia Khang|02/12/1997|Nam|0901234567|khang.bui@company.com|63 Nguyen Van Cu, Q5, TP.HCM|Nhan vien kinh doanh|28/11/2020|PB003
+NV008|Hoang My Linh|17/06/2001|Nu|0901234568|linh.hoang@company.com|101 Au Co, Tan Binh, TP.HCM|Chuyen vien nhan su|05/07/2023|PB001
+NV009|Do Thanh Tung|09/04/1999|Nam|0901234569|tung.do@company.com|55 Quang Trung, Go Vap, TP.HCM|Nhan vien tai chinh|22/10/2022|PB002
+NV010|Nguyen Bao Chau|27/08/2003|Nu|0901234570|chau.nguyen@company.com|88 Tran Hung Dao, Q1, TP.HCM|Nhan vien van hanh|18/03/2024|PB005
