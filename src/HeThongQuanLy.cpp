@@ -435,3 +435,117 @@ void HeThongQuanLy::hienThiDanhSachLichLamViec() {
         dsLichLamViec[i].hienThiThongTin();
     }
 }
+
+//------------------------------------------------------------//
+//                      OBJECT DONXINNGHI                     //
+//------------------------------------------------------------//
+
+int HeThongQuanLy::timViTriDonXinNghiTheoMa(const string& maDonNghi) {
+    for (int i = 0; i < dsDonXinNghi.size(); i++) {
+        if (dsDonXinNghi[i].getMaDonNghi() == maDonNghi) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+bool HeThongQuanLy::tonTaiMaDonXinNghi(const string& maDonNghi) {
+    return timViTriDonXinNghiTheoMa(maDonNghi) != -1;
+}
+
+DonXinNghi* HeThongQuanLy::layDonXinNghiTheoMa(const string& maDonNghi) {
+    int viTri = timViTriDonXinNghiTheoMa(maDonNghi);
+
+    if (viTri == -1) {
+        return nullptr;
+    }
+
+    return &dsDonXinNghi[viTri];
+}
+
+const vector<DonXinNghi>& HeThongQuanLy::layDanhSachDonXinNghi() const {
+    return dsDonXinNghi;
+}
+
+void HeThongQuanLy::themDonXinNghi(const DonXinNghi& dxn) {
+    if (tonTaiMaDonXinNghi(dxn.getMaDonNghi())) {
+        cout << "Ma don xin nghi da ton tai. Khong the them.\n";
+        return;
+    }
+
+    dsDonXinNghi.push_back(dxn);
+}
+
+void HeThongQuanLy::hienThiDanhSachDonXinNghi() {
+    if (dsDonXinNghi.empty()) {
+        cout << "Danh sach don xin nghi dang rong." << endl;
+        return;
+    }
+
+    cout << "\n===== DANH SACH DON XIN NGHI =====" << endl;
+    for (int i = 0; i < dsDonXinNghi.size(); i++) {
+        cout << "\nDon xin nghi thu " << i + 1 << ":" << endl;
+        dsDonXinNghi[i].hienThiThongTin();
+    }
+}
+
+void HeThongQuanLy::hienThiDonXinNghiTheoMa(const string& maDonNghi) {
+    int viTri = timViTriDonXinNghiTheoMa(maDonNghi);
+
+    if (viTri == -1) {
+        cout << "Khong tim thay don xin nghi co ma: " << maDonNghi << endl;
+        return;
+    }
+
+    cout << "\nThong tin don xin nghi tim duoc:\n";
+    dsDonXinNghi[viTri].hienThiThongTin();
+}
+
+bool HeThongQuanLy::xoaDonXinNghiTheoMa(const string& maDonNghi) {
+    int viTri = timViTriDonXinNghiTheoMa(maDonNghi);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsDonXinNghi.erase(dsDonXinNghi.begin() + viTri);
+    return true;
+}
+
+bool HeThongQuanLy::suaDonXinNghiTheoMa(const string& maDonNghi) {
+    int viTri = timViTriDonXinNghiTheoMa(maDonNghi);
+
+    if (viTri == -1) {
+        return false;
+    }
+
+    dsDonXinNghi[viTri].capNhatThongTin();
+    return true;
+}
+
+bool HeThongQuanLy::capNhatDonXinNghiTheoMa(
+    const string& maDonNghi,
+    const string& maNhanVien,
+    const string& loaiNghi,
+    const string& ngayBatDau,
+    const string& ngayKetThuc,
+    const string& lyDo,
+    const string& trangThaiDuyet,
+    const string& nguoiDuyet
+) {
+    DonXinNghi* dxn = layDonXinNghiTheoMa(maDonNghi);
+
+    if (dxn == nullptr) {
+        return false;
+    }
+
+    dxn->setMaNhanVien(maNhanVien);
+    dxn->setLoaiNghi(loaiNghi);
+    dxn->setNgayBatDau(ngayBatDau);
+    dxn->setNgayKetThuc(ngayKetThuc);
+    dxn->setLyDo(lyDo);
+    dxn->setTrangThaiDuyet(trangThaiDuyet);
+    dxn->setNguoiDuyet(nguoiDuyet);
+
+    return true;
+}
