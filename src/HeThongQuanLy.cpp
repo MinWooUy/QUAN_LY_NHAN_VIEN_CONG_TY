@@ -5,6 +5,9 @@
 using namespace std;
 
 HeThongQuanLy::HeThongQuanLy() {
+    
+ ghiCSVTuTXT("../data/nhan_vien_test.txt", "../data/nhan_vien.csv");
+
 }
 
 //------------------------------------------------------------//
@@ -548,4 +551,71 @@ bool HeThongQuanLy::capNhatDonXinNghiTheoMa(
     dxn->setNguoiDuyet(nguoiDuyet);
 
     return true;
+}
+
+
+void HeThongQuanLy::ghiCSVTuTXT(const string& fileTxt, const string& fileCSV) {
+    // Reset dữ liệu cũ
+    dsNhanVien.clear();
+
+    // Đọc file TXT
+    ifstream inFile(fileTxt);
+    if (!inFile.is_open()) {
+        cout << "Khong mo duoc file TXT: " << fileTxt << endl;
+        return;
+    }
+
+    string line;
+    while (getline(inFile, line)) {
+        if (line.empty() || line[0] == '#') continue;
+
+        stringstream ss(line);
+        vector<string> parts;
+        string part;
+
+        while (getline(ss, part, '|')) {
+            parts.push_back(part);
+        }
+
+        if (parts.size() != 10) continue;
+
+        dsNhanVien.emplace_back(
+            parts[0], parts[1], parts[2], parts[3], parts[4],
+            parts[5], parts[6], parts[7], parts[8], parts[9]
+        );
+    }
+
+    inFile.close();
+
+    if (dsNhanVien.empty()) {
+        cout << "Khong co du lieu de ghi CSV!\n";
+        return;
+    }
+
+    // Ghi file CSV
+    ofstream outFile(fileCSV);
+    if (!outFile.is_open()) {
+        cout << "Khong mo duoc file CSV: " << fileCSV << endl;
+        return;
+    }
+
+    outFile << "\xEF\xBB\xBF"; // BOM fix Excel
+    outFile << "MaNhanVien,HoTen,NgaySinh,GioiTinh,SoDienThoai,Email,DiaChi,ChucVu,NgayVaoLam,MaPhongBan\n";
+
+    for (const auto& nv : dsNhanVien) {
+        outFile << "\"" << nv.getMaNhanVien() << "\","
+                << "\"" << nv.getHoTen() << "\","
+                << "\"" << nv.getNgaySinh() << "\","
+                << "\"" << nv.getGioiTinh() << "\","
+                << "\"" << nv.getSoDienThoai() << "\","
+                << "\"" << nv.getEmail() << "\","
+                << "\"" << nv.getDiaChi() << "\","
+                << "\"" << nv.getChucVu() << "\","
+                << "\"" << nv.getNgayVaoLam() << "\","
+                << "\"" << nv.getMaPhongBan() << "\"\n";
+    }
+
+    outFile.close();
+
+    cout << "Da chuyen TXT -> CSV thanh cong!\n";
 }
