@@ -1,53 +1,34 @@
 #include "PhongBan.h"
-#include <iostream>
 using namespace std;
 
-PhongBan::PhongBan() {
-    maPhongBan = "";
-    tenPhongBan = "";
-    truongPhong = "";
-    soLuongNhanVien = 0;
+int PhongBan::soLuongNhanVienTrongPhong = 0;
+int PhongBan::soLuongPhongBan = 0;
+
+PhongBan::PhongBan(string ma, string ten, NhanVien* tp){
+	this->maPhongBan = ma;
+	this->tenPhongBan = ten;
+	this->truongPhong = tp;
+	tangSoLuongPB();
 }
 
-PhongBan::PhongBan(const string& ma, const string& ten, const string& truong, int soLuong) {
-    maPhongBan = ma;
-    tenPhongBan = ten;
-    truongPhong = truong;
-    soLuongNhanVien = soLuong;
+int PhongBan::getSoLuongNhanVien(){
+	return soLuongNhanVienTrongPhong;
 }
 
-void PhongBan::nhapThongTin() {
-    cout << "Nhap ma phong ban: ";
-    getline(cin, maPhongBan);
-
-    cout << "Nhap ten phong ban: ";
-    getline(cin, tenPhongBan);
-
-    cout << "Nhap truong phong: ";
-    getline(cin, truongPhong);
-
-    cout << "Nhap so luong nhan vien: ";
-    cin >> soLuongNhanVien;
-    cin.ignore();
+void PhongBan::tangSoLuongNV(){
+	soLuongNhanVienTrongPhong++;
 }
 
-void PhongBan::hienThiThongTin() const {
-    cout << "Ma phong ban: " << maPhongBan << endl;
-    cout << "Ten phong ban: " << tenPhongBan << endl;
-    cout << "Truong phong: " << truongPhong << endl;
-    cout << "So luong nhan vien: " << soLuongNhanVien << endl;
+void PhongBan::giamSoLuongNV(){
+	soLuongNhanVienTrongPhong--;
 }
 
-void PhongBan::capNhatThongTin() {
-    cout << "Cap nhat ten phong ban: ";
-    getline(cin, tenPhongBan);
+void PhongBan::tangSoLuongPB(){
+	soLuongPhongBan++;
+}
 
-    cout << "Cap nhat truong phong: ";
-    getline(cin, truongPhong);
-
-    cout << "Cap nhat so luong nhan vien: ";
-    cin >> soLuongNhanVien;
-    cin.ignore();
+void PhongBan::giamSoLuongPB(){
+	soLuongPhongBan--;
 }
 
 string PhongBan::getMaPhongBan() const {
@@ -58,22 +39,43 @@ string PhongBan::getTenPhongBan() const {
     return tenPhongBan;
 }
 
-string PhongBan::getTruongPhong() const {
+NhanVien* PhongBan::getTruongPhong() const {
     return truongPhong;
 }
 
-int PhongBan::getSoLuongNhanVien() const {
-    return soLuongNhanVien;
-}
-
-void PhongBan::setTenPhongBan(const string& tenPhongBan) {
-    this->tenPhongBan = tenPhongBan;
-}
-
-void PhongBan::setTruongPhong(const string& truongPhong) {
+void PhongBan::setTruongPhong(NhanVien* truongPhong) {
     this->truongPhong = truongPhong;
 }
 
-void PhongBan::setSoLuongNhanVien(int soLuongNhanVien) {
-    this->soLuongNhanVien = soLuongNhanVien;
+void PhongBan::themNhanVienVaoPhongBan(NhanVien* nv){
+	if (nv == nullptr) return;
+	
+	if(this->maPhongBan == nv->getMaPhongBan()){
+		dsNhanVienTrongPhong.push_back(nv);
+		this->tangSoLuongNV();
+	}	
 }
+
+void PhongBan::xoaTungPhongBan(){
+	this->dsNhanVienTrongPhong.clear();
+	this->truongPhong = nullptr;
+	this->soLuongNhanVienTrongPhong = 0;
+}
+
+void PhongBan::xoaNhanVienPhongBan(NhanVien* nv){
+	if(nv == nullptr) return;
+	
+	if(this->truongPhong == nv){
+		this->truongPhong = nullptr;
+	}
+	
+	for(int i = 0; i < dsNhanVienTrongPhong.size(); i++){
+		if(nv == dsNhanVienTrongPhong[i]){
+			dsNhanVienTrongPhong.erase(dsNhanVienTrongPhong.begin() + i);
+			giamSoLuongNV();
+			break;
+		}
+	}
+}
+
+vector<NhanVien*> PhongBan::getDsNhanVienTrongPhong() const { return dsNhanVienTrongPhong; }

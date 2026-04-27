@@ -2,11 +2,13 @@
 #define NHANVIEN_H
 
 #include <string>
-#include "LichLamViec.h"
+#include <iostream>
+#include <vector>
 using namespace std;
 
-class NhanVien: public LichLamViec {
-private:
+class NhanVien{
+protected:
+	static int siSoNhanVien;
     string maNhanVien;
     string hoTen;
     string ngaySinh;
@@ -33,11 +35,7 @@ public:
         string ngayVaoLam,
         string maPhongBan
     );
-
-    void nhapThongTin();
-    void hienThiThongTin();
-    void capNhatThongTin();
-
+	// Getter
     string getMaNhanVien() const;
     string getHoTen() const;
     string getNgaySinh() const;
@@ -48,7 +46,10 @@ public:
     string getChucVu() const;
     string getNgayVaoLam() const;
     string getMaPhongBan() const;
-
+    string getOption(int selec);
+    static int getSiSo();
+	// Setter
+	void setMaNhanVien(const string& maNhanVien);	
     void setHoTen(const string& hoTen);
     void setNgaySinh(const string& ngaySinh);
     void setGioiTinh(const string& gioiTinh);
@@ -58,6 +59,11 @@ public:
     void setChucVu(const string& chucVu);
     void setNgayVaoLam(const string& ngayVaoLam);
     void setMaPhongBan(string ma);
+    
+    // Function
+    static void tangSiSo();
+    static void giamSiSo();
+    static void resetSiSo();
 };
 
 #endif

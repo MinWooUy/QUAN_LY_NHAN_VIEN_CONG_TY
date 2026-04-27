@@ -1,0 +1,55 @@
+// Xuất Danh Sách Nhân Viên
+void MainWindow::on_btnLoadNhanVien_clicked()
+{
+    vector<NhanVien*>ds = congTy->getDsNhanVien();
+    HienThiDanhSachNhanVienLenBang(ds);
+}
+
+
+void MainWindow::on_btnXoaNhanVien_clicked()
+{
+    int row = ui->tableWidget->currentRow(); // Lấy dòng đang click
+    if (row < 0) {
+        QMessageBox::warning(this, "Lỗi", "Vui lòng click chọn nhân viên trên bảng cần xóa!");
+        return;
+    }
+
+    // Lấy mã nhân viên ở cột 0 của dòng được chọn
+    QString maNV = ui->tableWidget->item(row, 0)->text();
+
+    // Gọi hàm lõi để xóa
+    congTy->XoaNhanVienKhoiDanhSachCongTy(maNV.toStdString());
+
+    // Load lại bảng
+    on_btnLoadNhanVien_clicked();
+    QMessageBox::information(this, "Thành công", "Đã xóa nhân viên " + maNV);
+}
+
+
+void MainWindow::on_btnLoadPhongBan_clicked()
+{
+    vector<PhongBan*> ds = congTy->getDsPhongBan();
+    HienThiDanhSachPhongBanLenBang(ds);
+}
+
+
+void MainWindow::on_btnThemNhanVien_clicked()
+{
+    ThemNhanVienDialog dialog(this);
+
+    // Nếu người dùng điền Form và bấm OK
+    if(dialog.exec() == QDialog::Accepted){
+        NhanVien* NVmoi = dialog.LayThongTinNhanVien();
+
+        if(NVmoi->getMaNhanVien().empty() || NVmoi->getHoTen().empty() || NVmoi->getMaPhongBan().empty()){
+            QMessageBox::warning(this, "Lỗi", "Mã, Tên nhân viên và Mã Phòng Ban không được để trống");
+            delete NVmoi;
+            return;
+        }
+
+        congTy->ThemNhanVienVaoDanhSachCongTy(NVmoi);
+        congTy->ThemNhanVienVaoPhongBan(NVmoi);
+
+        on_btnLoadNhanVien_clicked();
+    }
+}

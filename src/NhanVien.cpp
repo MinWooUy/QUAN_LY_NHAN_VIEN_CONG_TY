@@ -2,6 +2,24 @@
 #include <iostream>
 using namespace std;
 
+int NhanVien::siSoNhanVien = 0;
+
+int NhanVien::getSiSo(){
+	return siSoNhanVien;
+}
+
+void NhanVien::tangSiSo(){
+	siSoNhanVien++;
+}
+
+void NhanVien::giamSiSo(){
+	siSoNhanVien--;
+}
+
+void NhanVien::resetSiSo(){
+	siSoNhanVien = 0;
+}
+
 NhanVien::NhanVien() {
     maNhanVien = "";
     hoTen = "";
@@ -37,80 +55,6 @@ NhanVien::NhanVien(
     this->chucVu = chucVu;
     this->ngayVaoLam = ngayVaoLam;
     this->maPhongBan = maPhongBan;
-}
-
-void NhanVien::nhapThongTin() {
-    cout << "Nhap ma nhan vien: ";
-    getline(cin, maNhanVien);
-
-    cout << "Nhap ho ten: ";
-    getline(cin, hoTen);
-
-    cout << "Nhap ngay sinh: ";
-    getline(cin, ngaySinh);
-
-    cout << "Nhap gioi tinh: ";
-    getline(cin, gioiTinh);
-
-    cout << "Nhap so dien thoai: ";
-    getline(cin, soDienThoai);
-
-    cout << "Nhap email: ";
-    getline(cin, email);
-
-    cout << "Nhap dia chi: ";
-    getline(cin, diaChi);
-
-    cout << "Nhap chuc vu: ";
-    getline(cin, chucVu);
-
-    cout << "Nhap ngay vao lam: ";
-    getline(cin, ngayVaoLam);
-
-    cout << "Nhap ma phong ban: ";
-    getline(cin, maPhongBan);
-}
-
-void NhanVien::capNhatThongTin() {
-    cout << "Cap nhat ho ten: ";
-    getline(cin, hoTen);
-
-    cout << "Cap nhat ngay sinh: ";
-    getline(cin, ngaySinh);
-
-    cout << "Cap nhat gioi tinh: ";
-    getline(cin, gioiTinh);
-
-    cout << "Cap nhat so dien thoai: ";
-    getline(cin, soDienThoai);
-
-    cout << "Cap nhat email: ";
-    getline(cin, email);
-
-    cout << "Cap nhat dia chi: ";
-    getline(cin, diaChi);
-
-    cout << "Cap nhat chuc vu: ";
-    getline(cin, chucVu);
-
-    cout << "Cap nhat ngay vao lam: ";
-    getline(cin, ngayVaoLam);
-
-    cout << "Cap nhat ma phong ban: ";
-    getline(cin, maPhongBan);
-}
-
-void NhanVien::hienThiThongTin() {
-    cout << "Ma nhan vien: " << maNhanVien << endl;
-    cout << "Ho ten: " << hoTen << endl;
-    cout << "Ngay sinh: " << ngaySinh << endl;
-    cout << "Gioi tinh: " << gioiTinh << endl;
-    cout << "So dien thoai: " << soDienThoai << endl;
-    cout << "Email: " << email << endl;
-    cout << "Dia chi: " << diaChi << endl;
-    cout << "Chuc vu: " << chucVu << endl;
-    cout << "Ngay vao lam: " << ngayVaoLam << endl;
-    cout << "Ma phong ban: " << maPhongBan << endl;
 }
 
 string NhanVien::getMaNhanVien() const {
@@ -153,6 +97,24 @@ string NhanVien::getNgayVaoLam() const {
     return ngayVaoLam;
 }
 
+string NhanVien::getOption(int selec){
+    switch(selec){
+        case 0:
+            return getMaNhanVien();
+        case 1:
+            return getHoTen();
+        case 2:
+            return getNgaySinh();
+        case 3:
+            return getNgayVaoLam();
+        default: return "";
+    }
+}
+
+void NhanVien::setMaNhanVien(const string& maNhanVien){
+	this->maNhanVien = maNhanVien;
+}
+
 void NhanVien::setHoTen(const string& hoTen) {
     this->hoTen = hoTen;
 }
@@ -186,6 +148,7 @@ void NhanVien::setNgayVaoLam(const string& ngayVaoLam) {
 }
 
 void NhanVien::setMaPhongBan(string ma) {
-    maPhongBan = ma;
+    this->maPhongBan = ma;
 }
+
 

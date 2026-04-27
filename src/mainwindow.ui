@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>773</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>1181</width>
+      <height>661</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Tìm kiếm</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>20</y>
+      <width>371</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+    </property>
+    <property name="inputMask">
+     <string/>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>nhập tên/mã nhân viên cần tìm</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="DanhSachNhanVien">
+    <property name="title">
+     <string>Quản lý nhân viên</string>
+    </property>
+    <widget class="QMenu" name="menuXemDanhSach">
+     <property name="title">
+      <string>Xem danh sách</string>
+     </property>
+     <addaction name="actionNhanVien"/>
+     <addaction name="actionPhongBan"/>
+    </widget>
+    <widget class="QMenu" name="menuThaoTac">
+     <property name="title">
+      <string>Thao tác</string>
+     </property>
+     <addaction name="actionThemNhanVien_2"/>
+     <addaction name="actionXoaNhanVien_2"/>
+     <addaction name="actionSuaNhanVien_2"/>
+    </widget>
+    <widget class="QMenu" name="menuSapXep">
+     <property name="title">
+      <string>Sắp xếp</string>
+     </property>
+     <widget class="QMenu" name="menuTheoMaNhanVien">
+      <property name="title">
+       <string>Theo Mã Nhân Viên</string>
+      </property>
+      <addaction name="actionTangDanMaNV"/>
+      <addaction name="actionGiamDanMaNV"/>
+     </widget>
+     <widget class="QMenu" name="menuTheoTenNhanVien">
+      <property name="title">
+       <string>Theo Tên Nhân Viên</string>
+      </property>
+      <addaction name="actionTangDanTenNV"/>
+      <addaction name="actionGiamDanTenNV"/>
+     </widget>
+     <widget class="QMenu" name="menuTheoNgaySinh">
+      <property name="title">
+       <string>Theo Ngày Sinh</string>
+      </property>
+      <addaction name="actionTangDanNgaySinh"/>
+      <addaction name="actionGiamDanNgaySinh"/>
+     </widget>
+     <widget class="QMenu" name="menuTheoNgayVaoLam">
+      <property name="title">
+       <string>Theo Ngày Vào Làm</string>
+      </property>
+      <addaction name="actionTangDanNgayVL"/>
+      <addaction name="actionGiamDanNgayVL"/>
+     </widget>
+     <addaction name="menuTheoMaNhanVien"/>
+     <addaction name="menuTheoTenNhanVien"/>
+     <addaction name="menuTheoNgaySinh"/>
+     <addaction name="menuTheoNgayVaoLam"/>
+    </widget>
+    <addaction name="separator"/>
+    <addaction name="menuXemDanhSach"/>
+    <addaction name="menuThaoTac"/>
+    <addaction name="separator"/>
+    <addaction name="menuSapXep"/>
+   </widget>
+   <addaction name="DanhSachNhanVien"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionXemDanhSachPhongBan">
+   <property name="text">
+    <string>Xem danh sách phòng ban</string>
+   </property>
+  </action>
+  <action name="actionXoaNhanVien">
+   <property name="text">
+    <string>Xóa nhân viên</string>
+   </property>
+  </action>
+  <action name="actionSuaNhanVien">
+   <property name="text">
+    <string>Sửa nhân viên</string>
+   </property>
+  </action>
+  <action name="actionNhanVien">
+   <property name="text">
+    <string>Nhân Viên</string>
+   </property>
+  </action>
+  <action name="actionPhongBan">
+   <property name="text">
+    <string>Phòng Ban</string>
+   </property>
+  </action>
+  <action name="actionThemNhanVien_2">
+   <property name="text">
+    <string>Thêm Nhân Viên</string>
+   </property>
+  </action>
+  <action name="actionXoaNhanVien_2">
+   <property name="text">
+    <string>Xóa Nhân Viên</string>
+   </property>
+  </action>
+  <action name="actionSuaNhanVien_2">
+   <property name="text">
+    <string>Sửa Nhân Viên</string>
+   </property>
+  </action>
+  <action name="actionTangDanMaNV">
+   <property name="text">
+    <string>Tăng dần</string>
+   </property>
+  </action>
+  <action name="actionGiamDanMaNV">
+   <property name="text">
+    <string>Giảm dần</string>
+   </property>
+  </action>
+  <action name="actionTangDanTenNV">
+   <property name="text">
+    <string>Tăng dần</string>
+   </property>
+  </action>
+  <action name="actionGiamDanTenNV">
+   <property name="text">
+    <string>Giảm dần</string>
+   </property>
+  </action>
+  <action name="actionTangDanNgaySinh">
+   <property name="text">
+    <string>Tăng dần</string>
+   </property>
+  </action>
+  <action name="actionGiamDanNgaySinh">
+   <property name="text">
+    <string>Giảm dần</string>
+   </property>
+  </action>
+  <action name="actionTangDanNgayVL">
+   <property name="text">
+    <string>Tăng dần</string>
+   </property>
+  </action>
+  <action name="actionGiamDanNgayVL">
+   <property name="text">
+    <string>Giảm dần</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

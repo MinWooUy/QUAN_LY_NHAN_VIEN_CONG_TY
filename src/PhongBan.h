@@ -1,32 +1,42 @@
 #ifndef PHONGBAN_H
 #define PHONGBAN_H
 
+#include "NhanVien.h"
+
 #include <string>
+#include <vector>
 using namespace std;
 
-class PhongBan {
-private:
-    string maPhongBan;
-    string tenPhongBan;
-    string truongPhong;
-    int soLuongNhanVien;
+class PhongBan{
+	private:
+		static int soLuongPhongBan;
+		static int soLuongNhanVienTrongPhong;
+    	string maPhongBan;
+    	string tenPhongBan;
+    	NhanVien* truongPhong;
+    	vector<NhanVien*> dsNhanVienTrongPhong;
+	public:
+		PhongBan(string ma = "", string ten = "", NhanVien* tp = nullptr);
+		
+    	string getMaPhongBan() const;
+    	string getTenPhongBan() const;
+    	NhanVien* getTruongPhong() const;
+        vector<NhanVien*> getDsNhanVienTrongPhong() const;
+    	static int getSoLuongNhanVien();
 
-public:
-    PhongBan();
-    PhongBan(const string& ma, const string& ten, const string& truong, int soLuong);
-
-    void nhapThongTin();
-    void hienThiThongTin() const;
-    void capNhatThongTin();
-
-    string getMaPhongBan() const;
-    string getTenPhongBan() const;
-    string getTruongPhong() const;
-    int getSoLuongNhanVien() const;
-
-    void setTenPhongBan(const string& tenPhongBan);
-    void setTruongPhong(const string& truongPhong);
-    void setSoLuongNhanVien(int soLuongNhanVien);
+    	void setTenPhongBan(const string& tenPhongBan);
+    	void setTruongPhong(NhanVien* truongPhong);
+		
+		static void tangSoLuongPB();
+		static void giamSoLuongPB();
+		
+		static void tangSoLuongNV();
+		static void giamSoLuongNV(); 
+		
+		void themNhanVienVaoPhongBan(NhanVien* nv);
+		
+		void xoaTungPhongBan();
+		void xoaNhanVienPhongBan(NhanVien* nv);
 };
 
 #endif
