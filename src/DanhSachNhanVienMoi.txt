@@ -1,0 +1,30 @@
+NV001|Nguyễn Văn An|12/03/2000|Nam|0901234561|an.nguyen@company.com|12 Lê Lợi, Q1, TP.HCM|Nhân viên HCNS|01/06/2023|PB001
+NV002|Trần Thị Bích|25/07/1999|Nữ|0901234562|bich.tran@company.com|45 Nguyễn Trãi, Q5, TP.HCM|Kế toán viên|15/08/2022|PB002
+NV003|Lê Hoàng Minh|08/11/2001|Nam|0901234563|minh.le@company.com|78 Cách Mạng Tháng 8, Q10, TP.HCM|Nhân viên kinh doanh|10/01/2024|PB003
+NV004|Phạm Thu Hà|19/01/2000|Nữ|0901234564|ha.pham@company.com|22 Điện Biên Phủ, Bình Thạnh, TP.HCM|Lập trình viên|20/09/2023|PB004
+NV005|Võ Quốc Đạt|30/05/1998|Nam|0901234565|dat.vo@company.com|90 Phan Xích Long, Phú Nhuận, TP.HCM|Kỹ thuật viên|03/04/2021|PB004
+NV006|Đặng Ngọc Linh|14/09/2002|Nữ|0901234566|yen.dang@company.com|11 Võ Văn Tần, Q3, TP.HCM|Nhân viên vận hành|12/02/2024|PB005
+NV007|Bùi Gia Khang|02/12/1997|Nam|0901234567|khang.bui@company.com|63 Nguyễn Văn Cừ, Q5, TP.HCM|Nhân viên kinh doanh|28/11/2020|PB003
+NV008|Hoàng Mỹ Linh|17/06/2001|Nữ|0901234568|linh.hoang@company.com|101 Âu Cơ, Tân Bình, TP.HCM|Chuyên viên nhân sự|05/07/2023|PB001
+NV009|Đỗ Thanh Tùng|09/04/1999|Nam|0901234569|tung.do@company.com|55 Quang Trung, Gò Vấp, TP.HCM|Nhân viên tài chính|22/10/2022|PB002
+NV010|Nguyễn Bảo Châu|27/08/2003|Nữ|0901234570|chau.nguyen@company.com|88 Trần Hưng Đạo, Q1, TP.HCM|Nhân viên vận hành|18/03/2024|PB005
+NV011|Lý Quốc Hải|05/05/1996|Nam|0901234571|hai.ly@company.com|15A Tôn Đức Thắng, Q1, TP.HCM|Lập trình viên|15/05/2019|PB004
+NV012|Phan Thị Mai|22/08/1995|Nữ|0901234572|mai.phan@company.com|112 Ba Tháng Hai, Q10, TP.HCM|Nhân viên tuyển dụng|01/08/2020|PB001
+NV013|Vũ Đình Trọng|14/11/1998|Nam|0901234573|trong.vu@company.com|405 Lê Văn Sỹ, Tân Bình, TP.HCM|Nhân viên kinh doanh|10/02/2022|PB003
+NV014|Trịnh Ngọc Hân|03/02/2000|Nữ|0901234574|han.trinh@company.com|88 Nguyễn Thị Minh Khai, Q3, TP.HCM|Kế toán tổng hợp|05/09/2023|PB002
+NV015|Ngô Quang Trường|19/12/1997|Nam|0901234575|truong.ngo@company.com|230 Xô Viết Nghệ Tĩnh, Bình Thạnh, TP.HCM|Chuyên viên mạng|20/11/2021|PB004
+NV016|Dương Cẩm Ly|07/07/2002|Nữ|0901234576|ly.duong@company.com|15 Hoàng Hoa Thám, Phú Nhuận, TP.HCM|Nhân viên vận hành|14/04/2024|PB005
+NV017|Bùi Văn Hùng|26/01/1994|Nam|0901234577|hung.bui@company.com|75 Lý Tự Trọng, Q1, TP.HCM|Quản lý dự án|01/03/2018|PB004
+NV018|Hồ Thảo Nguyên|11/10/1999|Nữ|0901234578|nguyen.ho@company.com|92 Phạm Văn Đồng, Thủ Đức, TP.HCM|Chăm sóc khách hàng|15/06/2022|PB003
+NV019|Đinh Thái Sơn|29/04/1995|Nam|0901234579|son.dinh@company.com|310 Lạc Long Quân, Q11, TP.HCM|Chuyên viên tài chính|12/12/2020|PB002
+NV020|Lâm Gia Hân|08/03/2001|Nữ|0901234580|han.lam@company.com|155 Sư Vạn Hạnh, Q10, TP.HCM|Trợ lý hành chính|25/07/2023|PB001
+NV021|Châu Thành Đạt|16/09/1998|Nam|0901234581|dat.chau@company.com|44 Lê Thánh Tôn, Q1, TP.HCM|Nhân viên kinh doanh|08/08/2021|PB003
+NV022|Mai Lan Anh|21/05/2000|Nữ|0901234582|anh.mai@company.com|80 Trần Não, Q2, TP.HCM|Chuyên viên kiểm thử|10/10/2022|PB004
+NV023|Trương Đình Phong|10/12/1996|Nam|0901234583|phong.truong@company.com|220 Nguyễn Đình Chiểu, Q3, TP.HCM|Nhân viên kho|05/05/2019|PB005
+NV024|Đoàn Kim Oanh|04/06/1997|Nữ|0901234584|oanh.doan@company.com|11/2 Lương Định Của, Q2, TP.HCM|Nhân viên kế toán|15/01/2021|PB002
+NV025|Tạ Minh Triết|28/02/1999|Nam|0901234585|triet.ta@company.com|227 Nguyễn Văn Cừ, Q5, TP.HCM|Lập trình viên|20/03/2022|PB004
+NV026|Phí Nhã Uyên|13/08/2002|Nữ|0901234586|uyen.phi@company.com|140 Nguyễn Oanh, Gò Vấp, TP.HCM|Chuyên viên đào tạo|11/09/2023|PB001
+NV027|Tôn Thất Hiệp|01/10/1995|Nam|0901234587|hiep.ton@company.com|33 Huỳnh Tấn Phát, Q7, TP.HCM|Nhân viên vận hành|02/02/2020|PB005
+NV028|Kiều Tú Trinh|25/11/2000|Nữ|0901234588|trinh.kieu@company.com|9A Hậu Giang, Q6, TP.HCM|Nhân viên kinh doanh|18/11/2023|PB003
+NV029|Khổng Tử Kiên|17/04/1998|Nam|0901234589|kien.khong@company.com|188 An Dương Vương, Q5, TP.HCM|Thiết kế vi mạch|09/06/2021|PB004
+NV030|Cấn Phương Hoa|31/12/2001|Nữ|0901234590|hoa.can@company.com|77 Tên Lửa, Bình Tân, TP.HCM|Nhân viên HCNS|04/04/2024|PB001

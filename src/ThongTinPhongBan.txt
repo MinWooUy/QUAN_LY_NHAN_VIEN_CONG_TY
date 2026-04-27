@@ -1,0 +1,5 @@
+PB001|Phong Hanh Chinh Nhan Su|NV001|
+PB002|Phong Tai Chinh Ke Toan|NV002|
+PB003|Phong Kinh Doanh|NV003|
+PB004|Phong Ky Thuat Cong Nghe|NV004|
+PB005|Phong Van Hanh|NV006|

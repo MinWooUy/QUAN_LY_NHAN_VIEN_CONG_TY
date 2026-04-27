@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         QuanLyCongTy.h
         ThongTinNhanVien.txt
         themnhanviendialog.h themnhanviendialog.cpp themnhanviendialog.ui
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET QuanLyNhanVienCongTy APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -73,3 +74,12 @@ install(TARGETS QuanLyNhanVienCongTy
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(QuanLyNhanVienCongTy)
 endif()
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ThongTinNhanVien.txt
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ThongTinPhongBan.txt
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/DanhSachNhanVienMoi.txt
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
