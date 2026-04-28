@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "themnhanviendialog.h"
+#include "phongbancard.h"
+#include <QGridLayout>
 #include "./ui_mainwindow.h"
 #include <QMessageBox>
+#include <QLocale>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -9,7 +12,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //Khởi tạo dữ liệu lõi
     congTy = new QuanLyCongTy();
 
     // Đặt file .txt vào thư mục build của Qt (thư mục debug/release)
@@ -17,6 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     congTy->DocDanhSachPhongBan("ThongTinPhongBan.txt");
     congTy->PhanBoNhanVienVaoPhongBan();
 
+    QStringList headers = {"Mã Nhân Viên", "Họ Tên", "Ngày Sinh", "Ngày Vào Làm", "Mã Phòng Ban", "Chức Vụ", "Giới Tính", "SĐT"};
+    // Thêm cột Lương vào cuối:
+    headers << "Lương Tháng";
+
+    ui->tableWidget->setColumnCount(headers.size());
+    ui->tableWidget->setHorizontalHeaderLabels(headers);
     // Cho cột tự giãn đều
     ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -47,8 +55,8 @@ void MainWindow::HienThiDanhSachNhanVienLenBang(vector<NhanVien*> ds){
     ui->tableWidget->setRowCount(0); // Xóa dữ liệu cũ
 
     // Setup cấu trúc bảng
-    ui->tableWidget->setColumnCount(8);
-    ui->tableWidget->setHorizontalHeaderLabels({"Mã Nhân Viên", "Họ Tên", "Ngày Sinh", "Ngày Vào Làm",  "Mã Đơn vị", "Chức vụ", "Giới tính", "Số Điện Thoại"});
+    // ui->tableWidget->setColumnCount(8);
+    //ui->tableWidget->setHorizontalHeaderLabels({"Mã Nhân Viên", "Họ Tên", "Ngày Sinh", "Ngày Vào Làm",  "Mã Đơn vị", "Chức vụ", "Giới tính", "Số Điện Thoại"});
 
     for(int i = 0; i < ds.size(); i++){
         ui->tableWidget->insertRow(i);
@@ -61,28 +69,24 @@ void MainWindow::HienThiDanhSachNhanVienLenBang(vector<NhanVien*> ds){
         ui->tableWidget->setItem(i, 5, new QTableWidgetItem(QString::fromStdString(ds[i]->getChucVu())));
         ui->tableWidget->setItem(i, 6, new QTableWidgetItem(QString::fromStdString(ds[i]->getGioiTinh())));
         ui->tableWidget->setItem(i, 7, new QTableWidgetItem(QString::fromStdString(ds[i]->getSoDienThoai())));
-    }
-}
 
-// Hiển thị danh sách phòng ban
-void MainWindow::HienThiDanhSachPhongBanLenBang(vector<PhongBan*> ds){
-    ui->tableWidget->setRowCount(0); // Xóa dữ liệu cũ
+        double tienLuong = ds[i]->tinhLuong();
+        // Định dạng số tiền kiểu Việt Nam (VD: 15.000.000 VNĐ)
+        QLocale vnLocale(QLocale::Vietnamese, QLocale::Vietnam);
+        QString luongChuoi = vnLocale.toCurrencyString(tienLuong, "VNĐ");
 
-    ui->tableWidget->setColumnCount(3);
-    ui->tableWidget->setHorizontalHeaderLabels({"Mã Phòng Ban", "Tên Đơn Vị", "Trưởng Phòng"});
+        // Ép chữ căn lề phải cho cột tiền tệ
+        QTableWidgetItem* itemLuong = new QTableWidgetItem(luongChuoi);
+        itemLuong->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
-    for(int i = 0; i < ds.size(); i++){
-        ui->tableWidget->insertRow(i);
-
-        ui->tableWidget->setItem(i, 0, new QTableWidgetItem(QString::fromStdString(ds[i]->getMaPhongBan())));
-        ui->tableWidget->setItem(i, 1, new QTableWidgetItem(QString::fromStdString(ds[i]->getTenPhongBan())));
-        ui->tableWidget->setItem(i, 2, new QTableWidgetItem(QString::fromStdString(ds[i]->getTruongPhong()->getHoTen())));
+        ui->tableWidget->setItem(i, 8, itemLuong);
     }
 }
 
 // Xuất Danh Sách Nhân Viên
 void MainWindow::taiDanhSachNhanVien()
 {
+    ui->stackedWidget->setCurrentIndex(0);
     vector<NhanVien*>ds = congTy->getDsNhanVien();
     HienThiDanhSachNhanVienLenBang(ds);
 }
@@ -108,11 +112,48 @@ void MainWindow::xoaNhanVien()
     QMessageBox::information(this, "Thành công", "Đã xóa nhân viên " + maNV);
 }
 
+void MainWindow::hienThiNhanVienTheoPhong(QString maPB){
+    ui->stackedWidget->setCurrentIndex(0);
+
+    string maPhong = maPB.toStdString();
+    vector<NhanVien*> nvTrongPhong;
+    vector<NhanVien*> dsTong = congTy->getDsNhanVien();
+    for(int i = 0; i < dsTong.size(); i++){
+        if(dsTong[i]->getMaPhongBan() == maPhong)
+            nvTrongPhong.push_back(dsTong[i]);
+    }
+    HienThiDanhSachNhanVienLenBang(nvTrongPhong);
+}
 
 void MainWindow::taiDanhSachPhongBan()
 {
+    ui->stackedWidget->setCurrentIndex(1);
+
+    if(ui->scrollPhongBan->widget()){
+        delete ui->scrollPhongBan->widget();
+    }
+
+    QWidget* containerWidget = new QWidget();
+    QGridLayout* gridLayout = new QGridLayout(containerWidget);
+
     vector<PhongBan*> ds = congTy->getDsPhongBan();
-    HienThiDanhSachPhongBanLenBang(ds);
+    int soCot = 3;
+
+    for(int i = 0; i < ds.size(); i++){
+        PhongBanCard* card = new PhongBanCard();
+        card->setData(ds[i]);
+
+        int row = i/soCot;
+        int col = i%soCot;
+        gridLayout->addWidget(card, row, col);
+        connect(card, &PhongBanCard::xemChiTietClicked, this, &MainWindow::hienThiNhanVienTheoPhong);
+    }
+
+    gridLayout->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+
+    // Nhét container chứa các thẻ vào ScrollArea
+    ui->scrollPhongBan->setWidget(containerWidget);
+    ui->scrollPhongBan->setWidgetResizable(true);
 }
 
 

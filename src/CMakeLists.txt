@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         QuanLyCongTy.h
         ThongTinNhanVien.txt
         themnhanviendialog.h themnhanviendialog.cpp themnhanviendialog.ui
+        phongbancard.h phongbancard.cpp phongbancard.ui
 
     )
 # Define target properties for Android with Qt 6 as:

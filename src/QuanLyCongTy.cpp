@@ -94,7 +94,7 @@ void QuanLyCongTy::DocDanhSachNhanVien(string file){
         if(myText.empty()) continue;
 
         stringstream ss(myText);
-        string maNV, ten, nSinh, gTinh, sdt, mail, dc, cVu, nLam, maPB;
+        string maNV, ten, nSinh, gTinh, sdt, mail, dc, chucVu, nLam, maPB, duLieuRiengStr;
 
         getline(ss, maNV, '|');
         getline(ss, ten, '|');
@@ -103,13 +103,69 @@ void QuanLyCongTy::DocDanhSachNhanVien(string file){
         getline(ss, sdt, '|');
         getline(ss, mail, '|');
         getline(ss, dc, '|');
-        getline(ss, cVu, '|');
+        getline(ss, chucVu, '|');
         getline(ss, nLam, '|');
-        getline(ss, maPB);
+        getline(ss, maPB, '|');
+        getline(ss, duLieuRiengStr);
 
-        NhanVien* nv = new NhanVien(maNV, ten, nSinh, gTinh, sdt, mail, dc, cVu, nLam, maPB);
+        if (!duLieuRiengStr.empty() && duLieuRiengStr.back() == '\r') {
+            duLieuRiengStr.pop_back();
+        }
 
-        dsNhanVien.push_back(nv);
+        double giaTriRieng = 0;
+        if (!duLieuRiengStr.empty()) {
+            try {
+                giaTriRieng = stod(duLieuRiengStr); // Dùng stod cho mọi trường hợp
+            } catch (...) {
+                giaTriRieng = 0; // Nếu chuỗi chứa chữ cái hoặc rỗng, mặc định là 0
+            }
+        }
+
+        NhanVien* nv = nullptr;
+
+        if (chucVu.find("kinh doanh") != string::npos) {
+            NhanVienKinhDoanh* kd = new NhanVienKinhDoanh();
+            // Đổi chuỗi thành số thực double bằng stod()
+            kd->setDoanhSo(giaTriRieng);
+            nv = kd;
+        }
+        else if (chucVu.find("Quản lý") != string::npos || chucVu.find("Trưởng") != string::npos) {
+            QuanLy* ql = new QuanLy();
+            ql->setHeSo(giaTriRieng);
+            nv = ql;
+        }
+        else if (chucVu.find("Kỹ thuật") != string::npos || chucVu.find("Lập trình") != string::npos || chucVu.find("vi mạch") != string::npos) {
+            NhanVienKyThuat* kt = new NhanVienKyThuat();
+            kt->setHeSo(giaTriRieng);
+            nv = kt;
+        }
+        else if (chucVu.find("vận hành") != string::npos || chucVu.find("kho") != string::npos) {
+            NhanVienLaoDong* ld = new NhanVienLaoDong();
+            // Đổi chuỗi thành số nguyên int bằng stoi()
+            ld->setSoNgayCong((int)giaTriRieng);
+            nv = ld;
+        }
+        else {
+            // Các chức vụ còn lại (HCNS, Kế toán, Tuyển dụng...) mặc định là Văn phòng
+            NhanVienVanPhong* vp = new NhanVienVanPhong();
+            vp->setSoNgayCong((int)giaTriRieng);
+            nv = vp;
+        }
+        if (nv != nullptr) {
+            nv->setMaNhanVien(maNV);
+            nv->setHoTen(ten);
+            nv->setNgaySinh(nSinh);
+            nv->setGioiTinh(gTinh);
+            nv->setSoDienThoai(sdt);
+            nv->setEmail(mail);
+            nv->setDiaChi(dc);
+            nv->setChucVu(chucVu);
+            nv->setNgayVaoLam(nLam);
+            nv->setMaPhongBan(maPB);
+
+            // Thêm vào danh sách công ty
+            dsNhanVien.push_back(nv);
+        }
         NhanVien::tangSiSo();
     }
     MyReadFile.close();
@@ -250,8 +306,10 @@ vector<NhanVien*> QuanLyCongTy::timKiemNhanVien(string keyword){
     for(int i = 0; i < dsNhanVien.size(); i++){
         string maNV = toLowerStr(dsNhanVien[i]->getMaNhanVien());
         string tenNV = toLowerStr(dsNhanVien[i]->getHoTen());
+        string maNV2 = dsNhanVien[i]->getMaNhanVien();
+        string tenNV2 = dsNhanVien[i]->getHoTen();
 
-        if(maNV.find(keyword) != string::npos || tenNV.find(keyword) != string::npos)
+        if(maNV.find(keyword) != string::npos || tenNV.find(keyword) != string::npos || maNV2.find(keyword) != string::npos || tenNV2.find(keyword) != string::npos)
             ketQua.push_back(dsNhanVien[i]);
     }
     return ketQua;
@@ -271,7 +329,9 @@ void QuanLyCongTy::LuuDanhSachNhanVien(string file){
                    << dsNhanVien[i]->getDiaChi() << "|"
                    << dsNhanVien[i]->getChucVu() << "|"
                    << dsNhanVien[i]->getNgayVaoLam() << "|"
-                   << dsNhanVien[i]->getMaPhongBan() << endl;
+                   << dsNhanVien[i]->getMaPhongBan();
+            // Cột 11: Lưu dữ liệu riêng bằng nhờ ĐA HÌNH
+            MyFile << "|" << dsNhanVien[i]->getDuLieuRieng() << endl;
         }
         MyFile.close();
     }

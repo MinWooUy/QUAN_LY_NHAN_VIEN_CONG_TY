@@ -34,11 +34,12 @@ private slots:
     void sapXepGiamTheoNgayVaoLam();
     void on_lineEdit_textChanged(const QString &arg1);
 
+    // Phòng ban
+    void hienThiNhanVienTheoPhong(QString maPB);
 private:
     Ui::MainWindow *ui;
     QuanLyCongTy *congTy;
 
     void HienThiDanhSachNhanVienLenBang(vector<NhanVien*>dsNhanVien);
-    void HienThiDanhSachPhongBanLenBang(vector<PhongBan*>dsPhongBan);
 };
 #endif // MAINWINDOW_H

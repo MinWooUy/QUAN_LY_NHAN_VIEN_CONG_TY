@@ -25,7 +25,48 @@ NhanVien* ThemNhanVienDialog::LayThongTinNhanVien(){
     std::string ngayVaoLam = ui->txtNgayVaoLam->text().toStdString();
     std::string maPhongBan = ui->txtMaPhongBan->text().toStdString();
 
-    NhanVien* NVmoi = new NhanVien(maNhanVien, tenNhanVien, ngaySinh, gioiTinh, soDienThoai, email, diaChi, chucVu, ngayVaoLam, maPhongBan);
+    NhanVien* NVmoi = nullptr;
+
+    // Phân loại class con dựa trên chức vụ người dùng vừa nhập trên UI
+    if (chucVu.find("kinh doanh") != string::npos) {
+        NhanVienKinhDoanh* kd = new NhanVienKinhDoanh();
+        kd->setDoanhSo(0); // Khởi tạo mặc định dữ liệu riêng là 0
+        NVmoi = kd;
+    }
+    else if (chucVu.find("Quản lý") != string::npos || chucVu.find("Trưởng") != string::npos) {
+        QuanLy* ql = new QuanLy();
+        ql->setHeSo(1.0); // Khởi tạo mặc định hệ số là 1.0
+        NVmoi = ql;
+    }
+    else if (chucVu.find("Kỹ thuật") != string::npos || chucVu.find("Lập trình") != string::npos || chucVu.find("vi mạch") != string::npos) {
+        NhanVienKyThuat* kt = new NhanVienKyThuat();
+        kt->setHeSo(1.0);
+        NVmoi = kt;
+    }
+    else if (chucVu.find("vận hành") != string::npos || chucVu.find("kho") != string::npos) {
+        NhanVienLaoDong* ld = new NhanVienLaoDong();
+        ld->setSoNgayCong(0);
+        NVmoi = ld;
+    }
+    else {
+        // Mặc định là nhân viên văn phòng
+        NhanVienVanPhong* vp = new NhanVienVanPhong();
+        vp->setSoNgayCong(0);
+        NVmoi = vp;
+    }
+
+    if (NVmoi != nullptr) {
+        NVmoi->setMaNhanVien(maNhanVien);
+        NVmoi->setHoTen(tenNhanVien);
+        NVmoi->setNgaySinh(ngaySinh);
+        NVmoi->setGioiTinh(gioiTinh);
+        NVmoi->setSoDienThoai(soDienThoai);
+        NVmoi->setEmail(email);
+        NVmoi->setDiaChi(diaChi);
+        NVmoi->setChucVu(chucVu);
+        NVmoi->setNgayVaoLam(ngayVaoLam);
+        NVmoi->setMaPhongBan(maPhongBan);
+    }
     return NVmoi;
 }
 

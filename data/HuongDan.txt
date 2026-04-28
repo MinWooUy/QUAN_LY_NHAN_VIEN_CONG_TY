@@ -3,3 +3,6 @@ Quy trình khi Pull về:
 	2. Mở dự án: Dùng Qt Creator mở file .pro hoặc CMakeLists.txt trong folder src.
 	3. Configure Project: Chọn Kit biên dịch phù hợp trên máy của họ.
 	4. Rebuild: Chuột phải vào tên dự án chọn Clean, sau đó chọn Rebuild để đảm bảo mọi thứ được biên dịch mới từ đầu.
+
+Lưu ý: (file .txt, .csv, database.db để lưu nhân viên)
+	

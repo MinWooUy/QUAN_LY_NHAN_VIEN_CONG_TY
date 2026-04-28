@@ -1,5 +1,4 @@
 #include "NhanVien.h"
-#include <iostream>
 using namespace std;
 
 int NhanVien::siSoNhanVien = 0;
@@ -55,6 +54,7 @@ NhanVien::NhanVien(
     this->chucVu = chucVu;
     this->ngayVaoLam = ngayVaoLam;
     this->maPhongBan = maPhongBan;
+    this->luongCoBan = luongCoBan;
 }
 
 string NhanVien::getMaNhanVien() const {
