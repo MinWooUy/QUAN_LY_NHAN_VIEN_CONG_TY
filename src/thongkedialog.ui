@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ThongKeDialog</class>
+ <widget class="QDialog" name="ThongKeDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>432</width>
+    <height>478</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* =========================================
+   1. THIẾT LẬP FONT CHỮ TOÀN CỤC
+========================================= */
+* {
+    /* Ưu tiên dùng Segoe UI (chuẩn Windows 10/11), nhìn cực kỳ hiện đại và tròn trịa */
+    font-family: &quot;Segoe UI&quot;, &quot;Roboto&quot;, &quot;Helvetica Neue&quot;, Arial, sans-serif;
+    font-size: 14px; 
+    color: #2c3e50; /* Không bao giờ dùng màu đen tuyền (#000), dùng xanh Navy đậm sẽ dịu mắt và sang hơn */
+}
+
+/* =========================================
+   2. TIÊU ĐỀ LỚN (Label)
+========================================= */
+/* Cứ label nào bạn đặt tên có chữ &quot;TieuDe&quot; hoặc &quot;TongLuong&quot; sẽ tự động phóng to, in đậm */
+QLabel#lblTieuDe, QLabel#lblTongLuong {
+    font-size: 22px;
+    font-weight: 800; /* In đậm nét dày */
+    color: #1a252f;
+    padding-bottom: 10px;
+}
+
+/* =========================================
+   3. KHU VỰC NHẬP LIỆU (QLineEdit &amp; QComboBox)
+========================================= */
+QLineEdit, QComboBox {
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1; /* Viền xám sáng */
+    border-radius: 6px; /* Bo góc mềm mại */
+    padding: 8px 12px; /* Tạo không gian thở cho chữ bên trong (Rất quan trọng để nhìn đẹp) */
+    selection-background-color: #3498db; /* Màu khi bôi đen chữ */
+}
+
+/* Hiệu ứng khi click chuột vào ô nhập (Focus) */
+QLineEdit:focus, QComboBox:focus {
+    border: 2px solid #2980b9; /* Viền xanh Navy sáng lên */
+    background-color: #f8fafc;
+}
+
+/* =========================================
+   4. NÚT BẤM (QPushButton)
+========================================= */
+QPushButton {
+    background-color: #2c3e50; /* Màu nền Navy chuẩn */
+    color: #ffffff;            /* Chữ trắng */
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+QPushButton:hover {
+    background-color: #34495e; /* Sáng lên một chút khi di chuột qua */
+}
+
+QPushButton:pressed {
+    background-color: #1a252f; /* Tối đi khi click (nhấn xuống) */
+    padding-top: 12px;         /* Hiệu ứng nút bị lún xuống nhẹ */
+    padding-bottom: 8px;
+}
+
+/* Tạo ngoại lệ cho nút Hủy / Cancel để nó không bị tranh chấp sự chú ý với nút OK */
+QPushButton#btnCancel, QPushButton#btnHuy {
+    background-color: #e2e8f0;
+    color: #475569;
+}
+QPushButton#btnCancel:hover, QPushButton#btnHuy:hover {
+    background-color: #cbd5e1;
+}
+
+/* =========================================
+   5. BẢNG DỮ LIỆU (QTableWidget)
+========================================= */
+QTableWidget {
+    background-color: #ffffff;
+    alternate-background-color: #f8fafc; /* Màu dòng xen kẽ tinh tế */
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    gridline-color: #f1f5f9; /* Màu đường kẻ caro cực mờ */
+    outline: none;
+}
+
+QHeaderView::section {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-right: 1px solid #34495e;
+}</string>
+  </property>
+  <widget class="QLabel" name="lblTongQuyLuong">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>391</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tổng quỹ lương</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="tableThongKe">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>100</y>
+     <width>391</width>
+     <height>361</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -24,7 +24,7 @@
      </property>
      <property name="styleSheet">
       <string notr="true">QFrame#frameCard {
-    background-color: #2b579a;
+    background-color: #2c3e50;
     border-radius: 10px;
 }
 /* Chỉ áp dụng đệm cho cái khung, không làm thụt chữ thêm lần nữa */
@@ -34,7 +34,7 @@ QFrame#frameCard &gt; QLabel {
 }
 QPushButton {
     background-color: white;
-    color: #2b579a;
+    color: #2c3e50;
     border-radius: 5px;
     padding: 5px 15px; /* Đệm trái/phải 15px cho nút dài ra */
     font-weight: bold;
@@ -85,7 +85,7 @@ QPushButton {
        <rect>
         <x>120</x>
         <y>50</y>
-        <width>91</width>
+        <width>211</width>
         <height>20</height>
        </rect>
       </property>

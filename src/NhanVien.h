@@ -69,7 +69,8 @@ public:
     virtual ~NhanVien(){} // Destructor ảo
     // Đa hình/ kế thừa
     virtual double tinhLuong() = 0; // Hàm thuần ảo
-    virtual string getDuLieuRieng() = 0;
+    virtual string getDuLieuRieng() const = 0;
+    virtual string getNhomChucVu() const = 0;
 };
 
 class NhanVienTheoNgayCong: public NhanVien{
@@ -81,17 +82,20 @@ public:
     }
     int getSoNgayCong(){return soNgayCong;}
 
-    string getDuLieuRieng(){
+    string getDuLieuRieng() const{
         return to_string(soNgayCong);
     }
 };
 
 class NhanVienLaoDong: public NhanVienTheoNgayCong{
-public:private:
+private:
     int phuCap = 500000; // Ăn trưa, đi lại
 public:
     double tinhLuong(){
         return (luongCoBan /26.0) * soNgayCong + phuCap;
+    }
+    string getNhomChucVu() const{
+        return "Vận Hành";
     }
 };
 
@@ -101,6 +105,9 @@ private:
 public:
     double tinhLuong(){
         return (luongCoBan /26.0) * soNgayCong + phuCap;
+    }
+    string getNhomChucVu() const{
+        return "Văn Phòng";
     }
 };
 
@@ -114,12 +121,16 @@ public:
     }
     int getDoanhSo(){return doanhSo;}
 
-    string getDuLieuRieng() {
+    string getDuLieuRieng() const{
         return to_string((long long)doanhSo);
     }
 
     double tinhLuong(){
         return luongCoBan + (doanhSo * tiLeHoaHong);
+    }
+
+    string getNhomChucVu() const{
+        return "Kinh Doanh";
     }
 };
 
@@ -128,7 +139,7 @@ protected:
     double heSo;
 public:
     void setHeSo(double heSo) { this->heSo = heSo; }
-    string getDuLieuRieng(){
+    string getDuLieuRieng() const{
         return to_string(heSo);
     }
 };
@@ -137,6 +148,10 @@ class NhanVienKyThuat:public NhanVienTheoHeSo{
 private:
     int phuCap = 700000;
 public:
+    string getNhomChucVu() const{
+        return "Kỹ Thuật";
+    }
+
     double tinhLuong(){
         return luongCoBan * heSo + phuCap;
     }
@@ -148,6 +163,10 @@ private:
 public:
     double tinhLuong(){
         return luongCoBan * heSo + phuCap;
+    }
+
+    string getNhomChucVu() const{
+        return "Quản Lý";
     }
 };
 

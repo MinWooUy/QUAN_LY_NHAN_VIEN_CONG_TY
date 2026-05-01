@@ -54,7 +54,6 @@ NhanVien::NhanVien(
     this->chucVu = chucVu;
     this->ngayVaoLam = ngayVaoLam;
     this->maPhongBan = maPhongBan;
-    this->luongCoBan = luongCoBan;
 }
 
 string NhanVien::getMaNhanVien() const {

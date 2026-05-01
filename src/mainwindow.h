@@ -36,9 +36,21 @@ private slots:
 
     // Phòng ban
     void hienThiNhanVienTheoPhong(QString maPB);
+    void capNhatLaiBang();
+    void themPhongBan();
+    void xoaPhongBan();
+    void boNhiemTruongPhong();
+
+    void on_btnThongKeLuong_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_btnThongTinNhom_clicked();
+
 private:
     Ui::MainWindow *ui;
     QuanLyCongTy *congTy;
+    PhongBan* phongBanHienTai = nullptr;
 
     void HienThiDanhSachNhanVienLenBang(vector<NhanVien*>dsNhanVien);
 };

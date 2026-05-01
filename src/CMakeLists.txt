@@ -29,6 +29,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ThongTinNhanVien.txt
         themnhanviendialog.h themnhanviendialog.cpp themnhanviendialog.ui
         phongbancard.h phongbancard.cpp phongbancard.ui
+        DanhSachNhanVienMoi.csv ThongTinPhongBanMoi.csv
+        BaoCaoThongKe.h
+        BaoCaoThongKe.cpp
+        thongkedialog.h thongkedialog.cpp thongkedialog.ui
 
     )
 # Define target properties for Android with Qt 6 as:
@@ -82,5 +86,9 @@ file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ThongTinNhanVien.txt
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ThongTinPhongBan.txt
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/DanhSachNhanVienMoi.txt
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/DanhSachNhanVienMoi.csv
     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/ThongTinPhongBanMoi.csv
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+

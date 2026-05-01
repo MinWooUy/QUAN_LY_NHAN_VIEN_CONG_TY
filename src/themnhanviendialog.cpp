@@ -6,6 +6,11 @@ ThemNhanVienDialog::ThemNhanVienDialog(QWidget *parent)
     , ui(new Ui::ThemNhanVienDialog)
 {
     ui->setupUi(this);
+    ui->cbbChucVu->addItem("Kinh Doanh");
+    ui->cbbChucVu->addItem("Quản Lý");
+    ui->cbbChucVu->addItem("Kỹ Thuật");
+    ui->cbbChucVu->addItem("Vận Hành");
+    ui->cbbChucVu->addItem("Văn Phòng");
 }
 
 ThemNhanVienDialog::~ThemNhanVienDialog()
@@ -13,43 +18,47 @@ ThemNhanVienDialog::~ThemNhanVienDialog()
     delete ui;
 }
 
-NhanVien* ThemNhanVienDialog::LayThongTinNhanVien(){
-    std::string maNhanVien = ui->txtMaNhanVien->text().toStdString();
-    std::string tenNhanVien = ui->txtTenNhanVien->text().toStdString();
-    std::string ngaySinh = ui->txtNgaySinh->text().toStdString();
-    std::string gioiTinh = ui->txtGioiTinh->text().toStdString();
-    std::string soDienThoai = ui->txtSoDienThoai->text().toStdString();
-    std::string email = ui->txtEmail->text().toStdString();
-    std::string diaChi = ui->txtDiaChi->text().toStdString();
-    std::string chucVu = ui->txtChucVu->text().toStdString();
-    std::string ngayVaoLam = ui->txtNgayVaoLam->text().toStdString();
-    std::string maPhongBan = ui->txtMaPhongBan->text().toStdString();
+NhanVien* ThemNhanVienDialog::LayThongTinNhanVien() {
+    // 1. Chuyển các thông tin cơ bản sang chuẩn std::string
+    string maNhanVien = ui->txtMaNhanVien->text().toStdString();
+    string tenNhanVien = ui->txtTenNhanVien->text().toStdString();
+    string ngaySinh = ui->txtNgaySinh->text().toStdString();
+    string gioiTinh = ui->txtGioiTinh->text().toStdString();
+    string soDienThoai = ui->txtSoDienThoai->text().toStdString();
+    string email = ui->txtEmail->text().toStdString();
+    string diaChi = ui->txtDiaChi->text().toStdString();
+    string congViecCuThe = ui->txtCongViec->text().toStdString();
+    string ngayVaoLam = ui->txtNgayVaoLam->text().toStdString();
+    string maPhongBan = ui->txtMaPhongBan->text().toStdString();
+
+    // 2. Lấy chức vụ chuẩn từ ComboBox
+    QString chucVu = ui->cbbChucVu->currentText();
 
     NhanVien* NVmoi = nullptr;
 
-    // Phân loại class con dựa trên chức vụ người dùng vừa nhập trên UI
-    if (chucVu.find("kinh doanh") != string::npos) {
+    // 3. ĐA HÌNH (Polymorphism): So sánh bằng tuyệt đối, code chạy cực nhanh và an toàn
+    if (chucVu == "Kinh Doanh") {
         NhanVienKinhDoanh* kd = new NhanVienKinhDoanh();
-        kd->setDoanhSo(0); // Khởi tạo mặc định dữ liệu riêng là 0
+        kd->setDoanhSo(0);
         NVmoi = kd;
     }
-    else if (chucVu.find("Quản lý") != string::npos || chucVu.find("Trưởng") != string::npos) {
+    else if (chucVu == "Quản Lý" || chucVu == "Trưởng Phòng") {
         QuanLy* ql = new QuanLy();
-        ql->setHeSo(1.0); // Khởi tạo mặc định hệ số là 1.0
+        ql->setHeSo(1.0);
         NVmoi = ql;
     }
-    else if (chucVu.find("Kỹ thuật") != string::npos || chucVu.find("Lập trình") != string::npos || chucVu.find("vi mạch") != string::npos) {
+    else if (chucVu == "Kỹ Thuật") {
         NhanVienKyThuat* kt = new NhanVienKyThuat();
         kt->setHeSo(1.0);
         NVmoi = kt;
     }
-    else if (chucVu.find("vận hành") != string::npos || chucVu.find("kho") != string::npos) {
+    else if (chucVu == "Vận Hành") {
         NhanVienLaoDong* ld = new NhanVienLaoDong();
         ld->setSoNgayCong(0);
         NVmoi = ld;
     }
     else {
-        // Mặc định là nhân viên văn phòng
+        // Mặc định (Văn phòng, Hành chính...)
         NhanVienVanPhong* vp = new NhanVienVanPhong();
         vp->setSoNgayCong(0);
         NVmoi = vp;
@@ -63,15 +72,22 @@ NhanVien* ThemNhanVienDialog::LayThongTinNhanVien(){
         NVmoi->setSoDienThoai(soDienThoai);
         NVmoi->setEmail(email);
         NVmoi->setDiaChi(diaChi);
-        NVmoi->setChucVu(chucVu);
         NVmoi->setNgayVaoLam(ngayVaoLam);
         NVmoi->setMaPhongBan(maPhongBan);
+
+        NVmoi->setChucVu(congViecCuThe);
     }
+
     return NVmoi;
 }
 
 void ThemNhanVienDialog::setThongTinNhanVien(NhanVien* nv) {
     if (!nv) return;
+
+    this->setWindowTitle("Cập nhật thông tin nhân viên");
+    ui->lblTieuDe->setText("CẬP NHẬT THÔNG TIN");
+    ui->txtMaNhanVien->setReadOnly(true); // Không cho sửa mã nhân viên
+    ui->txtMaNhanVien->setStyleSheet("background-color: #e2e8f0; color: #64748b; border: 1px solid #cbd5e1;");
 
     // Điền dữ liệu từ object vào các ô QLineEdit trên UI
     ui->txtMaNhanVien->setText(QString::fromStdString(nv->getMaNhanVien()));
@@ -81,10 +97,7 @@ void ThemNhanVienDialog::setThongTinNhanVien(NhanVien* nv) {
     ui->txtSoDienThoai->setText(QString::fromStdString(nv->getSoDienThoai()));
     ui->txtEmail->setText(QString::fromStdString(nv->getEmail()));
     ui->txtDiaChi->setText(QString::fromStdString(nv->getDiaChi()));
-    ui->txtChucVu->setText(QString::fromStdString(nv->getChucVu()));
+    ui->txtCongViec->setText(QString::fromStdString(nv->getChucVu()));
     ui->txtNgayVaoLam->setText(QString::fromStdString(nv->getNgayVaoLam()));
     ui->txtMaPhongBan->setText(QString::fromStdString(nv->getMaPhongBan()));
-
-    // Khi sửa, thường ta sẽ khóa không cho sửa Mã Nhân Viên
-    // ui->txtMaNhanVien->setEnabled(false);
 }

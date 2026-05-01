@@ -1,7 +1,6 @@
 #include "PhongBan.h"
 using namespace std;
 
-int PhongBan::soLuongNhanVienTrongPhong = 0;
 int PhongBan::soLuongPhongBan = 0;
 
 PhongBan::PhongBan(string ma, string ten, NhanVien* tp){
@@ -12,15 +11,7 @@ PhongBan::PhongBan(string ma, string ten, NhanVien* tp){
 }
 
 int PhongBan::getSoLuongNhanVien(){
-	return soLuongNhanVienTrongPhong;
-}
-
-void PhongBan::tangSoLuongNV(){
-	soLuongNhanVienTrongPhong++;
-}
-
-void PhongBan::giamSoLuongNV(){
-	soLuongNhanVienTrongPhong--;
+    return dsNhanVienTrongPhong.size();
 }
 
 void PhongBan::tangSoLuongPB(){
@@ -52,14 +43,16 @@ void PhongBan::themNhanVienVaoPhongBan(NhanVien* nv){
 	
 	if(this->maPhongBan == nv->getMaPhongBan()){
 		dsNhanVienTrongPhong.push_back(nv);
-		this->tangSoLuongNV();
 	}	
 }
 
 void PhongBan::xoaTungPhongBan(){
 	this->dsNhanVienTrongPhong.clear();
 	this->truongPhong = nullptr;
-	this->soLuongNhanVienTrongPhong = 0;
+}
+
+void PhongBan::xoaDanhSachNhanVienTrongPhong(){
+    this->dsNhanVienTrongPhong.clear();
 }
 
 void PhongBan::xoaNhanVienPhongBan(NhanVien* nv){
@@ -72,7 +65,6 @@ void PhongBan::xoaNhanVienPhongBan(NhanVien* nv){
 	for(int i = 0; i < dsNhanVienTrongPhong.size(); i++){
 		if(nv == dsNhanVienTrongPhong[i]){
 			dsNhanVienTrongPhong.erase(dsNhanVienTrongPhong.begin() + i);
-			giamSoLuongNV();
 			break;
 		}
 	}

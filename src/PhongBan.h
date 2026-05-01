@@ -10,8 +10,7 @@ using namespace std;
 class PhongBan{
 	private:
 		static int soLuongPhongBan;
-		static int soLuongNhanVienTrongPhong;
-    	string maPhongBan;
+        string maPhongBan;
     	string tenPhongBan;
     	NhanVien* truongPhong;
     	vector<NhanVien*> dsNhanVienTrongPhong;
@@ -22,7 +21,7 @@ class PhongBan{
     	string getTenPhongBan() const;
     	NhanVien* getTruongPhong() const;
         vector<NhanVien*> getDsNhanVienTrongPhong() const;
-    	static int getSoLuongNhanVien();
+        int getSoLuongNhanVien();
 
     	void setTenPhongBan(const string& tenPhongBan);
     	void setTruongPhong(NhanVien* truongPhong);
@@ -30,13 +29,11 @@ class PhongBan{
 		static void tangSoLuongPB();
 		static void giamSoLuongPB();
 		
-		static void tangSoLuongNV();
-		static void giamSoLuongNV(); 
-		
 		void themNhanVienVaoPhongBan(NhanVien* nv);
 		
 		void xoaTungPhongBan();
-		void xoaNhanVienPhongBan(NhanVien* nv);
+        void xoaNhanVienPhongBan(NhanVien* nv);
+        void xoaDanhSachNhanVienTrongPhong();
 };
 
 #endif

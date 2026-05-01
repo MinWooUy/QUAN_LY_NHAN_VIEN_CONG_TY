@@ -49,9 +49,11 @@ void QuanLyCongTy::DocDanhSachPhongBan(string file){
         stringstream ss(myText);
         string maPB, tenPB, maTP;
 
-        getline(ss, maPB, '|');
-        getline(ss, tenPB, '|');
-        getline(ss, maTP, '|');
+        getline(ss, maPB, ',');
+        getline(ss, tenPB, ',');
+        getline(ss, maTP);
+
+        if(!maTP.empty() && maTP.back() == '\r') maTP.pop_back();
 
         // Tim Truong Phong Theo Ma
         NhanVien* tp = timNhanVienTheoMaNV(maTP);
@@ -89,25 +91,36 @@ void QuanLyCongTy::DocDanhSachNhanVien(string file){
         return;
     }
 
+    // Xử lý BOM (Byte Order Mark) của file UTF-8 để không bị lỗi chữ cái đầu tiên
+    string firstLine;
+    getline(MyReadFile, firstLine);
+    if (firstLine.size() >= 3 && firstLine.substr(0, 3) == "\xEF\xBB\xBF") {
+        firstLine = firstLine.substr(3);
+    }
+    // Đưa con trỏ đọc file về lại đầu sau khi check xong
+    MyReadFile.seekg(0, ios::beg);
+
     string myText;
     while(getline(MyReadFile, myText)){
         if(myText.empty()) continue;
 
         stringstream ss(myText);
-        string maNV, ten, nSinh, gTinh, sdt, mail, dc, chucVu, nLam, maPB, duLieuRiengStr;
+        string maNV, ten, nSinh, gTinh, sdt, mail, dc, nhomChucVu, CongViec, nLam, maPB, duLieuRiengStr;
 
-        getline(ss, maNV, '|');
-        getline(ss, ten, '|');
-        getline(ss, nSinh, '|');
-        getline(ss, gTinh, '|');
-        getline(ss, sdt, '|');
-        getline(ss, mail, '|');
-        getline(ss, dc, '|');
-        getline(ss, chucVu, '|');
-        getline(ss, nLam, '|');
-        getline(ss, maPB, '|');
+        getline(ss, maNV, ',');
+        getline(ss, ten, ',');
+        getline(ss, nSinh, ',');
+        getline(ss, gTinh, ',');
+        getline(ss, sdt, ',');
+        getline(ss, mail, ',');
+        getline(ss, dc, ',');
+        getline(ss, nhomChucVu, ',');
+        getline(ss, CongViec, ',');
+        getline(ss, nLam, ',');
+        getline(ss, maPB, ',');
         getline(ss, duLieuRiengStr);
 
+        // Xóa ký tự \r ở cuối dòng (do file csv tạo từ Windows)
         if (!duLieuRiengStr.empty() && duLieuRiengStr.back() == '\r') {
             duLieuRiengStr.pop_back();
         }
@@ -115,42 +128,41 @@ void QuanLyCongTy::DocDanhSachNhanVien(string file){
         double giaTriRieng = 0;
         if (!duLieuRiengStr.empty()) {
             try {
-                giaTriRieng = stod(duLieuRiengStr); // Dùng stod cho mọi trường hợp
+                giaTriRieng = stod(duLieuRiengStr);
             } catch (...) {
-                giaTriRieng = 0; // Nếu chuỗi chứa chữ cái hoặc rỗng, mặc định là 0
+                giaTriRieng = 0;
             }
         }
 
         NhanVien* nv = nullptr;
 
-        if (chucVu.find("kinh doanh") != string::npos) {
+        if (nhomChucVu == "Kinh Doanh") {
             NhanVienKinhDoanh* kd = new NhanVienKinhDoanh();
-            // Đổi chuỗi thành số thực double bằng stod()
             kd->setDoanhSo(giaTriRieng);
             nv = kd;
         }
-        else if (chucVu.find("Quản lý") != string::npos || chucVu.find("Trưởng") != string::npos) {
-            QuanLy* ql = new QuanLy();
-            ql->setHeSo(giaTriRieng);
-            nv = ql;
-        }
-        else if (chucVu.find("Kỹ thuật") != string::npos || chucVu.find("Lập trình") != string::npos || chucVu.find("vi mạch") != string::npos) {
+        else if (nhomChucVu == "Kỹ Thuật") {
             NhanVienKyThuat* kt = new NhanVienKyThuat();
             kt->setHeSo(giaTriRieng);
             nv = kt;
         }
-        else if (chucVu.find("vận hành") != string::npos || chucVu.find("kho") != string::npos) {
+        else if (nhomChucVu == "Quản Lý") {
+            QuanLy* ql = new QuanLy();
+            ql->setHeSo(giaTriRieng);
+            nv = ql;
+        }
+        else if (nhomChucVu == "Vận Hành") {
             NhanVienLaoDong* ld = new NhanVienLaoDong();
-            // Đổi chuỗi thành số nguyên int bằng stoi()
             ld->setSoNgayCong((int)giaTriRieng);
             nv = ld;
         }
         else {
-            // Các chức vụ còn lại (HCNS, Kế toán, Tuyển dụng...) mặc định là Văn phòng
+            // Mặc định cho Văn Phòng
             NhanVienVanPhong* vp = new NhanVienVanPhong();
             vp->setSoNgayCong((int)giaTriRieng);
             nv = vp;
         }
+
         if (nv != nullptr) {
             nv->setMaNhanVien(maNV);
             nv->setHoTen(ten);
@@ -159,19 +171,25 @@ void QuanLyCongTy::DocDanhSachNhanVien(string file){
             nv->setSoDienThoai(sdt);
             nv->setEmail(mail);
             nv->setDiaChi(dc);
-            nv->setChucVu(chucVu);
+
+            // Set nhóm chức vụ làm giao diện công việc hiển thị
+            nv->setChucVu(CongViec);
+
             nv->setNgayVaoLam(nLam);
             nv->setMaPhongBan(maPB);
 
-            // Thêm vào danh sách công ty
             dsNhanVien.push_back(nv);
+            NhanVien::tangSiSo();
         }
-        NhanVien::tangSiSo();
     }
     MyReadFile.close();
 }
 
 void QuanLyCongTy::PhanBoNhanVienVaoPhongBan(){
+    for(int i = 0; i < dsPhongBan.size(); i++){
+        dsPhongBan[i]->xoaDanhSachNhanVienTrongPhong();
+    }
+
     for(int i = 0 ; i < dsPhongBan.size(); i++){
         for(int j = 0; j < dsNhanVien.size(); j++)
             dsPhongBan[i]->themNhanVienVaoPhongBan(dsNhanVien[j]);
@@ -290,6 +308,7 @@ void heapSort(vector<NhanVien*>& dsNV, int n, int selec, bool isAscending){
 void QuanLyCongTy::sapXepNhanVien(int selec, bool isAscending){
     if(dsNhanVien.empty()) return;
     heapSort(this->dsNhanVien, dsNhanVien.size(), selec, isAscending);
+    PhanBoNhanVienVaoPhongBan();
 }
 
 // Tìm kiếm
@@ -318,21 +337,82 @@ vector<NhanVien*> QuanLyCongTy::timKiemNhanVien(string keyword){
 void QuanLyCongTy::LuuDanhSachNhanVien(string file){
     ofstream MyFile(file);
     if(MyFile.is_open()){
-        for(int i = 0; i < dsNhanVien.size(); i++){
+        unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+        MyFile.write((char*)bom, sizeof(bom));
 
-            MyFile << dsNhanVien[i]->getMaNhanVien() << "|"
-                   << dsNhanVien[i]->getHoTen() << "|"
-                   << dsNhanVien[i]->getNgaySinh() << "|"
-                   << dsNhanVien[i]->getGioiTinh() << "|"
-                   << dsNhanVien[i]->getSoDienThoai() << "|"
-                   << dsNhanVien[i]->getEmail() << "|"
-                   << dsNhanVien[i]->getDiaChi() << "|"
-                   << dsNhanVien[i]->getChucVu() << "|"
-                   << dsNhanVien[i]->getNgayVaoLam() << "|"
-                   << dsNhanVien[i]->getMaPhongBan();
-            // Cột 11: Lưu dữ liệu riêng bằng nhờ ĐA HÌNH
-            MyFile << "|" << dsNhanVien[i]->getDuLieuRieng() << endl;
+        for(int i = 0; i < dsNhanVien.size(); i++){
+            MyFile << dsNhanVien[i]->getMaNhanVien() << ","
+                   << dsNhanVien[i]->getHoTen() << ","
+                   << dsNhanVien[i]->getNgaySinh() << ","
+                   << dsNhanVien[i]->getGioiTinh() << ","
+                   << dsNhanVien[i]->getSoDienThoai() << ","
+                   << dsNhanVien[i]->getEmail() << ","
+                   << dsNhanVien[i]->getDiaChi() << ","
+                   << dsNhanVien[i]->getNhomChucVu() << ","
+                   << dsNhanVien[i]->getChucVu() << ","
+                   << dsNhanVien[i]->getNgayVaoLam() << ","
+                   << dsNhanVien[i]->getMaPhongBan() << ","
+                   << dsNhanVien[i]->getDuLieuRieng() << endl;
         }
         MyFile.close();
+    }
+}
+
+PhongBan* QuanLyCongTy::timKiemPhongBan(string maPB){
+    for(int i = 0; i < dsPhongBan.size(); i++){
+        if(dsPhongBan[i]->getMaPhongBan() == maPB) {
+            return dsPhongBan[i];
+        }
+    }
+    return nullptr;
+}
+
+bool QuanLyCongTy::kiemTraTrungMaPhongBan(string maPB) {
+    for (PhongBan* pb : dsPhongBan) {
+        if (pb->getMaPhongBan() == maPB) return true;
+    }
+    return false;
+}
+
+bool QuanLyCongTy::ThemPhongBanMoi(PhongBan* pb) {
+    if (pb == nullptr || kiemTraTrungMaPhongBan(pb->getMaPhongBan())) {
+        return false; // Bị trùng mã hoặc lỗi
+    }
+    dsPhongBan.push_back(pb);
+    return true;
+}
+
+int QuanLyCongTy::kiemTraPhongBan(string maPB) {
+    for (int i = 0; i < dsPhongBan.size(); i++) {
+        if (dsPhongBan[i]->getMaPhongBan() == maPB) {
+            // Nếu phòng ban còn người thì không được xóa
+            if (dsPhongBan[i]->getSoLuongNhanVien() > 0) {
+                cout << dsPhongBan[i] ->getSoLuongNhanVien();
+                return -1;
+            }
+
+            // Xóa bộ nhớ và xóa khỏi danh sách
+            delete dsPhongBan[i];
+            dsPhongBan.erase(dsPhongBan.begin() + i);
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void QuanLyCongTy::LuuDanhSachPhongBan(string file) {
+    ofstream f(file);
+    if (f.is_open()) {
+        // Ghi BOM để tránh lỗi tiếng Việt
+        unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+        f.write((char*)bom, sizeof(bom));
+
+        for (PhongBan* pb : dsPhongBan) {
+            string tenTP = pb->getTruongPhong() ? pb->getTruongPhong()->getMaNhanVien() : "None";
+            f << pb->getMaPhongBan() << ","
+              << pb->getTenPhongBan() << ","
+              << tenTP << endl;
+        }
+        f.close();
     }
 }

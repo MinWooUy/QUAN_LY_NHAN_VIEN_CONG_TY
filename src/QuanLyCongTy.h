@@ -5,7 +5,6 @@
 #include "PhongBan.h"
 #include <vector>
 #include <string>
-
 using namespace std;
 
 class QuanLyCongTy {
@@ -46,11 +45,16 @@ public:
 
     // Sắp xếp
     void sapXepNhanVien(int selec, bool isAscending);
-    void sapXepPhongBan(int selec);
     // void sapXepNhanVienTheoLuong();
 
     // Ghi File
     void LuuDanhSachNhanVien(string file);
+
+    PhongBan* timKiemPhongBan(string maPB);
+    bool kiemTraTrungMaPhongBan(string maPB);
+    bool ThemPhongBanMoi(PhongBan* pb);
+    int kiemTraPhongBan(string maPB); // Trả về int để bắt các loại lỗi
+    void LuuDanhSachPhongBan(string file);
 };
 
 #endif

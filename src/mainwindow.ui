@@ -6,87 +6,295 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
+    <width>1413</width>
     <height>746</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/* 1. Tổng thể cửa sổ chính */
+QMainWindow {
+    background-color: #f4f7f6;
+}
+
+/* 2. Widget trung tâm (Vùng chứa toàn bộ nội dung) */
+QWidget#centralwidget {
+    background-color: #f4f7f6;
+}
+
+/* 3. Tiêu đề lớn (Ví dụ: Chữ &quot;Tìm kiếm&quot; - label_2) */
+QLabel#label_2 {
+    color: #2c3e50;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* 4. Ô nhập liệu tìm kiếm (khớp tên lineEdit) */
+QLineEdit#lineEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 18px; /* Bo tròn sành điệu */
+    padding: 8px 15px;
+    background: white;
+    color: #1e293b;
+    font-family: &quot;Segoe UI&quot;;
+}
+
+QLineEdit#lineEdit:focus {
+    border: 2px solid #2c3e50; /* Đổi màu viền khi click vào */
+}
+
+/* 5. Nút bấm (khớp tên pushButton - ví dụ nút Tìm kiếm/Reset) */
+QPushButton#pushButton {
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 15px;
+    padding: 8px 20px;
+    font-weight: bold;
+    font-family: &quot;Segoe UI&quot;;
+    min-width: 80px;
+}
+
+QPushButton#pushButton:hover {
+    background-color: #2980b9;
+}
+
+QPushButton#pushButton:pressed {
+    background-color: #1c5980;
+}
+
+/* 6. Bảng dữ liệu (khớp tên tableWidget) */
+QTableWidget#tableWidget {
+    background-color: #ffffff;
+    alternate-background-color: #f8fafc;
+    gridline-color: #e2e8f0;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+    font-family: &quot;Segoe UI&quot;;
+    color: #1e293b;
+}
+
+/* Header ngang (Tên cột) */
+QHeaderView::section {
+    background-color: #2c3e50;
+    color: white;
+    padding: 12px 5px;
+    font-weight: bold;
+    font-size: 13px;
+    border: none;
+    border-right: 1px solid #2980b9;
+}
+
+/* Header dọc (Số thứ tự STT) */
+QHeaderView::section:vertical {
+    background-color: #2c3e50;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid #2980b9;
+}
+
+/* Ô dữ liệu cụ thể */
+QTableWidget#tableWidget::item {
+    padding: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+QTableWidget#tableWidget::item:selected {
+    background-color: #3498db;
+    color: white;
+}
+
+/* 7. Menu bar (Thanh menu trên cùng) */
+QMenuBar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dcdde1;
+}
+
+QMenuBar::item:selected {
+    background-color: #f1f5f9;
+}
+
+/* 8. Thanh cuộn dọc (Scrollbar) */
+QScrollBar:vertical {
+    border: none;
+    background: #f1f1f1;
+    width: 10px;
+    margin: 0px;
+}
+
+QScrollBar::handle:vertical {
+    background: #cbd5e1;
+    min-height: 20px;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: #94a3b8;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>40</x>
-      <y>20</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>14</pointsize>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Tìm kiếm</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>20</y>
-      <width>371</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="contextMenuPolicy">
-     <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
-    </property>
-    <property name="inputMask">
-     <string/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="placeholderText">
-     <string>nhập tên/mã nhân viên cần tìm</string>
-    </property>
-   </widget>
    <widget class="QStackedWidget" name="stackedWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>60</y>
-      <width>1131</width>
-      <height>621</height>
+      <x>260</x>
+      <y>20</y>
+      <width>1141</width>
+      <height>671</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>0</y>
-        <width>1121</width>
-        <height>621</height>
+        <y>60</y>
+        <width>1141</width>
+        <height>591</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Tìm kiếm</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>10</y>
+        <width>511</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ContextMenuPolicy::DefaultContextMenu</enum>
+      </property>
+      <property name="inputMask">
+       <string/>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="placeholderText">
+       <string>nhập tên/mã nhân viên cần tìm</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton">
+      <property name="geometry">
+       <rect>
+        <x>1000</x>
+        <y>10</y>
+        <width>120</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="lblSiSo">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>10</y>
+        <width>241</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLabel#lblSiSo {
+    background-color: #ffffff;      /* Nền trắng làm nổi bật con số */
+    color: #2c3e50;                 /* Chữ màu xanh Navy đậm */
+    font-family: &quot;Segoe UI&quot;, sans-serif;
+    font-size: 15px;                /* Chữ to vừa phải */
+    font-weight: bold;              /* In đậm để dễ đọc */
+    padding: 8px 16px;              /* Khoảng thở xung quanh chữ */
+    border: 1px solid #cbd5e1;      /* Viền xám nhạt */
+    border-radius: 6px;             /* Bo góc mềm mại */
+    border-left: 5px solid #2c3e50; /* Vạch nhấn màu xanh dương sáng ở viền trái */
+}
+
+/* Hiệu ứng nhẹ khi di chuột ngang qua (tùy chọn) */
+QLabel#lblSiSo:hover {
+    background-color: #f8fafc;
+    border-left: 5px solid  #3498db; 
+}</string>
+      </property>
+      <property name="text">
+       <string>Sỉ Số Nhân Viên:</string>
       </property>
      </widget>
     </widget>
     <widget class="QWidget" name="page_2">
+     <property name="styleSheet">
+      <string notr="true">/* Tùy chỉnh vùng cuộn danh sách phòng ban */
+QScrollArea#scrollPhongBan {
+    border: none;
+    background-color: #f4f7f6; /* Đồng bộ màu nền với cửa sổ chính */
+}
+
+/* Quan trọng: Phải chỉnh nền cho widget con bên trong ScrollArea */
+QWidget#scrollAreaWidgetContents {
+    background-color: #f4f7f6;
+}
+
+/* Custom thanh cuộn cho Page 2 (mỏng và hiện đại hơn) */
+QScrollArea#scrollPhongBan QScrollBar:vertical {
+    border: none;
+    background: #e2e8f0;
+    width: 6px;
+    border-radius: 3px;
+}
+
+QScrollArea#scrollPhongBan QScrollBar::handle:vertical {
+    background: #94a3b8;
+    border-radius: 3px;
+}
+
+/* Custom giao diện cho từng Card phòng ban (nếu bạn dùng QFrame làm container trong PhongBanCard) */
+/* Giả sử bên trong PhongBanCard bạn có 1 QFrame tên là mainFrame */
+QFrame#mainFrame {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+/* Hiệu ứng đổ bóng nhẹ khi di chuột vào Card (nếu Qt version hỗ trợ hoặc dùng hiệu ứng màu) */
+QFrame#mainFrame:hover {
+    border: 1px solid #3498db;
+    background-color: #f0f9ff;
+}</string>
+     </property>
      <widget class="QScrollArea" name="scrollPhongBan">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1131</width>
-        <height>621</height>
+        <width>1141</width>
+        <height>671</height>
        </rect>
       </property>
       <property name="widgetResizable">
@@ -97,12 +305,115 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1129</width>
-         <height>619</height>
+         <width>1141</width>
+         <height>671</height>
         </rect>
        </property>
       </widget>
      </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="frameThongTin">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>231</width>
+      <height>681</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">/* Tùy chỉnh vùng nền của Sidebar */
+QFrame#frameThongTin {
+    background-color: #2c3e50; /* Xanh navy đậm, tạo sự tương phản mạnh mẽ, chuyên nghiệp */
+    border-right: 1px solid #1a252f;
+    margin: 0px;
+}
+
+/* Tùy chỉnh Tiêu đề phần mềm */
+QLabel#lblTieuDe {
+    color: #ffffff; /* Chữ màu trắng */
+    font-size: 18px;
+    font-weight: bold;
+    font-family: &quot;Segoe UI&quot;;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #34495e; /* Đường kẻ mỏng phân cách tiêu đề và nội dung */
+}
+
+/* Tùy chỉnh các nút bấm trong Menu */
+QPushButton#btnThongKeLuong,
+QPushButton#btnThongTinNhom,
+QPushButton#btnThemPhongBan,
+QPushButton#btnXoaPhongBan {
+    background-color: #34495e; /* Màu nền nhạt hơn viền một chút */
+    color: #ecf0f1; /* Chữ trắng xám */
+    border: none;
+    border-radius: 8px; /* Bo góc mềm mại */
+    padding: 12px 15px; /* Tăng khoảng cách để nút to, dễ bấm hơn */
+    font-size: 14px;
+    font-weight: bold;
+    font-family: &quot;Segoe UI&quot;;
+    text-align: center; /* Tạm căn giữa theo ảnh của bạn, nếu thích có thể đổi thành 'left' */
+}
+
+/* Hiệu ứng khi di chuột qua nút (Hover) */
+QPushButton#btnThongKeLuong:hover,
+QPushButton#btnThongTinNhom:hover {
+    background-color: #3498db; /* Đổi sang màu xanh dương sáng */
+    color: #ffffff;
+    /* border-left: 4px solid #f1c40f; */ /* Tùy chọn: Thêm viền vàng bên trái khi hover để tạo điểm nhấn */
+}
+
+/* Hiệu ứng khi click nút (Pressed) */
+QPushButton#btnThongKeLuong:pressed,
+QPushButton#btnThongTinNhom:pressed {
+    background-color: #2980b9;
+}</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Shape::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Shadow::Raised</enum>
+    </property>
+    <widget class="QLabel" name="lblTieuDe">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>180</y>
+       <width>171</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Quản Lý Nhân Viên</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnThongKeLuong">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>500</y>
+       <width>211</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Quỹ Lương Công Ty</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnThongTinNhom">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>580</y>
+       <width>211</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Thông Tin Nhóm 22</string>
+     </property>
     </widget>
    </widget>
   </widget>
@@ -111,7 +422,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
+     <width>1413</width>
      <height>25</height>
     </rect>
    </property>
@@ -177,7 +488,22 @@
     <addaction name="separator"/>
     <addaction name="menuSapXep"/>
    </widget>
+   <widget class="QMenu" name="menuQuanLyPhongBan">
+    <property name="title">
+     <string>Quản Lý Phòng Ban</string>
+    </property>
+    <widget class="QMenu" name="menuThao_T_c">
+     <property name="title">
+      <string>Thao Tác</string>
+     </property>
+     <addaction name="actionThemPhongBan"/>
+     <addaction name="actionXoaPhongBan"/>
+     <addaction name="actionBoNhiemTruongPhong"/>
+    </widget>
+    <addaction name="menuThao_T_c"/>
+   </widget>
    <addaction name="DanhSachNhanVien"/>
+   <addaction name="menuQuanLyPhongBan"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionXemDanhSachPhongBan">
@@ -258,6 +584,21 @@
   <action name="actionGiamDanNgayVL">
    <property name="text">
     <string>Giảm dần</string>
+   </property>
+  </action>
+  <action name="actionThemPhongBan">
+   <property name="text">
+    <string>Thêm Phòng Ban</string>
+   </property>
+  </action>
+  <action name="actionXoaPhongBan">
+   <property name="text">
+    <string>Xóa Phòng Ban</string>
+   </property>
+  </action>
+  <action name="actionBoNhiemTruongPhong">
+   <property name="text">
+    <string>Bổ Nhiệm Trưởng Phòng</string>
    </property>
   </action>
  </widget>
